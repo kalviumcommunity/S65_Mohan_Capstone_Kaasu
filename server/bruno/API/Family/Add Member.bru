@@ -1,0 +1,18 @@
+meta {
+  name: Add Member
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/family/add-member
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "familyId": "67e2aae3af8ff1451bf73594",
+    "userId": "id"
+  }
+}

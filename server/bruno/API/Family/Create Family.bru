@@ -1,0 +1,18 @@
+meta {
+  name: Create Family
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/family/create
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "name": "Family 1",
+    "members": ["67e25d1cf790301edee6d72b"]
+  }
+}
