@@ -21,7 +21,7 @@ const signup = async (req,res) => {
 const login = async (req,res) => {
     try {
         const {email, password} = req.body
-        const user = await User.findOne({ email, password})
+        const user = await User.findOne({email, password})
         if(!user){
             return res.status(400).json({msg: "Incorrect Email / Password"})
         } 
