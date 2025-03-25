@@ -1,4 +1,5 @@
 const User = require('../models/user.model')
+const jwt = require('jsonwebtoken')
 
 const signup = async (req,res) => {
     try {
@@ -25,16 +26,29 @@ const login = async (req,res) => {
         if(!user){
             return res.status(400).json({msg: "Incorrect Email / Password"})
         } 
+        const token = jwt.sign({id: user._id, familyId: user.familyId, name: user.name}, process.env.JWT_SECRET, {expiresIn: "7d"})
+        res.cookie("token", token, {
+            httpOnly: true,
+            maxAge: 7 * 24 * 60 * 60 * 1000
+        })
         return res.status(200).json({msg: "User Logged In Successfully", user})
     } catch (error) {
         return res.status(500).json({msg: "Internal Server Error", desc: error.message})
     }
 }
 
+const logout = async (req,res) => {
+    try {
+         res.clearCookie("token", {httpOnly: true})
+        return res.status(200).json({msg: "User Logged Out Successfully"})
+    } catch (error) {
+        return res.status(500).json({msg: "Internal Server Error", desc: error.message})
+    }
+}
 const getProfile = async (req,res) => {
     try {
-        const {email} = req.body
-        const user = await User.find({ email})
+        const userId =  req.user.userId
+        const user = await User.findOne({userId})
         if(!user){
             return res.status(400).json({msg: "User Profile Not found"})
         } 
@@ -56,4 +70,4 @@ const getAllUsers = async(req,res) => {
     }
 }
 
-module.exports = {login, signup, getProfile, getAllUsers}
+module.exports = {login, signup,logout, getProfile, getAllUsers}

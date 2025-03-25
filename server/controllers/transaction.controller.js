@@ -1,7 +1,9 @@
 const Transaction = require("../models/transaction.model");
 
 const createTransaction = async (req, res) => {
-    const { userId, familyId, amount, status, category, date, description } = req.body;
+    const userId = req.user.userId
+    const familyId = req.user.familyId
+    const { amount, status, category, date, description } = req.body;
 
     try {
         const newTransaction = new Transaction({ userId, familyId, amount, status, category, date, description });
@@ -16,8 +18,8 @@ const createTransaction = async (req, res) => {
 
 const getUserTransactions = async (req, res) => {
     try {
-        const { id } = req.params; // Get ID from route params
-        const transactions = await Transaction.find({ userId: id });
+        const userId = req.user.userId
+        const transactions = await Transaction.find({ userId });
 
         if (!transactions.length) {
             return res.status(404).json({ msg: "No Transactions Found" });
@@ -32,8 +34,8 @@ const getUserTransactions = async (req, res) => {
 
 const getFamilyTransactions = async (req, res) => {
     try {
-        const { id } = req.params; 
-        const transactions = await Transaction.find({ familyId: id });
+        const familyId = req.user.familyId 
+        const transactions = await Transaction.find({ familyId });
 
         if (!transactions.length) {
             return res.status(404).json({ msg: "No Transactions Found" });
