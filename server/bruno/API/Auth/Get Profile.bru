@@ -1,0 +1,17 @@
+meta {
+  name: Get Profile
+  type: http
+  seq: 3
+}
+
+post {
+  url: http://localhost:3000/api/auth/profile
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+    "email": "admin@admin.com"
+  }
+}

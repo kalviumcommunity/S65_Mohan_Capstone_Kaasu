@@ -1,0 +1,19 @@
+meta {
+  name: Update Budget
+  type: http
+  seq: 3
+}
+
+put {
+  url: http://localhost:3000/api/budget/edit/67e2af4b243d442b290f6f04
+  body: json
+  auth: inherit
+}
+
+body:json {
+  {
+  "category":"Accessiories",
+   "limit":5000,
+   "spent":3100
+  }
+}

@@ -1,0 +1,20 @@
+meta {
+  name: Delete Budget
+  type: http
+  seq: 4
+}
+
+delete {
+  url: http://localhost:3000/api/budget/delete/67e2ae60af8ff1451bf735a1
+  body: none
+  auth: inherit
+}
+
+body:json {
+  {
+  "category":"Accessiories",
+   "limit":5000,
+   "total":2000,
+   "spent":3000
+  }
+}

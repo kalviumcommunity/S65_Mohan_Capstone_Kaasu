@@ -1,0 +1,23 @@
+meta {
+  name: Create
+  type: http
+  seq: 1
+}
+
+post {
+  url: http://localhost:3000/api/transaction/create
+  body: json
+  auth: inherit
+}
+
+body:json {
+  { 
+   "userId":"67e25d1cf790301edee6d72b",
+   "familyId": "67e2aae3af8ff1451bf73594",
+   "amount": 5000,
+   "status": "In",
+   "category": "Salary",
+   "date": "2025-04-02",
+   "description": "This Month Salary" 
+  }
+}

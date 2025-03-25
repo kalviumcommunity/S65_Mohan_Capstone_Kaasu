@@ -1,0 +1,21 @@
+meta {
+  name: Edit Transaction
+  type: http
+  seq: 4
+}
+
+put {
+  url: http://localhost:3000/api/transaction/edit/67e2acbdaf8ff1451bf7359c
+  body: json
+  auth: inherit
+}
+
+body:json {
+  { 
+   "amount": 2000,
+   "status": "In",
+   "category": "Salary",
+   "date": "2025-04-02",
+   "description": "This Month Salary" 
+  }
+}

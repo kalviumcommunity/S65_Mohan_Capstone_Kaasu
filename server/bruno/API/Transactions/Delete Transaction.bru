@@ -1,0 +1,21 @@
+meta {
+  name: Delete Transaction
+  type: http
+  seq: 5
+}
+
+delete {
+  url: http://localhost:3000/api/transaction/delete/67e2acbdaf8ff1451bf7359c
+  body: none
+  auth: inherit
+}
+
+body:json {
+  { 
+   "amount": 2000,
+   "status": "In",
+   "category": "Salary",
+   "date": "2025-04-02",
+   "description": "This Month Salary" 
+  }
+}
