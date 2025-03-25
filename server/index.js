@@ -3,6 +3,10 @@ const app = express()
 const connectDB = require('./config/db')
 require('dotenv').config()
 
+
+app.use(express.json())
+
+
 const PORT = 3000
 app.listen(PORT, () => {
     try {
