@@ -2,14 +2,16 @@ const express = require('express')
 const app = express()
 const connectDB = require('./config/db')
 require('dotenv').config()
+const cookieParser = require('cookie-parser')
+const authMiddleware = require('./middlewares/auth.middleware')
 
-
+app.use(cookieParser())
 app.use(express.json())
 
 app.use('/api/auth', require('./routes/user.route'))
-app.use('/api/transaction', require('./routes/transaction.route'))
-app.use('/api/budget', require('./routes/budget.route'))
-app.use('/api/family', require('./routes/family.route'))
+app.use('/api/transaction', authMiddleware,require('./routes/transaction.route'))
+app.use('/api/budget',authMiddleware, require('./routes/budget.route'))
+app.use('/api/family',authMiddleware, require('./routes/family.route'))
 
 const PORT = 3000
 app.listen(PORT, () => {

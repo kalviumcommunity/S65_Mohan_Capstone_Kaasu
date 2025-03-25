@@ -24,8 +24,9 @@ const createFamily = async (req, res) => {
 
 const getFamily = async (req, res) => {
     try {
-        const { id } = req.params 
-        const family = await Family.findById(id).populate("members", "name email") 
+
+        const familyId = req.user.familyId
+        const family = await Family.findById(familyId).populate("members", "name email") 
 
         if (!family) {
             return res.status(404).json({ msg: "Family Not Found" }) 
@@ -41,7 +42,8 @@ const getFamily = async (req, res) => {
 
 const addFamilyMember = async (req, res) => {
     try {
-        const { familyId, userId } = req.body 
+        const { userId } = req.body 
+        const familyId = req.user.familyId
 
         const family = await Family.findById(familyId) 
         if (!family) {
@@ -63,7 +65,8 @@ const addFamilyMember = async (req, res) => {
 
 const removeFamilyMember = async (req, res) => {
     try {
-        const { familyId, userId } = req.body 
+        const { userId } = req.body 
+        const familyId = req.user.familyId
 
         const family = await Family.findById(familyId) 
         if (!family) {

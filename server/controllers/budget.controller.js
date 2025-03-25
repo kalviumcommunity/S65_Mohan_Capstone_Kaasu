@@ -2,7 +2,7 @@ const Budget = require("../models/budget.model");
 
 const addBudget = async (req, res) => {
     try {
-        const { userId } = req.params; 
+        const userId = req.user.userId 
         const { category, limit, spent } = req.body;
 
         const newBudget = new Budget({ userId, category, limit, spent });
@@ -17,7 +17,7 @@ const addBudget = async (req, res) => {
 
 const getBudget = async (req, res) => {
     try {
-        const { userId } = req.params;
+        const userId = req.user.userId
         const budgets = await Budget.find({ userId });
 
         if (!budgets.length) {
