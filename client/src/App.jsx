@@ -1,9 +1,12 @@
 import React from 'react'
+import Navbar from './components/Navbar'
+import Landing from './pages/Landing'
 
 const App = () => {
   return (
-    <div 
-    className='text-2xl bg-red-900'>App</div>
+    <div >
+      <Landing />
+    </div>
   )
 }
 

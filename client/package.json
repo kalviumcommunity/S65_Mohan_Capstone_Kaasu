@@ -8,9 +8,12 @@
     "build": "vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "tailwindcss":"npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
+    "tailwindcss": "npx tailwindcss -i ./src/input.css -o ./src/output.css --watch"
   },
   "dependencies": {
+    "@headlessui/react": "^2.2.0",
+    "framer-motion": "^12.6.2",
+    "lucide-react": "^0.484.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
