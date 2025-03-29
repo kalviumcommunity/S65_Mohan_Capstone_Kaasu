@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
 import { Dialog, DialogPanel } from '@headlessui/react';
 import { Menu, X } from 'lucide-react';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
+import axiosInstance from '../utils/axiosInstance';
 
 const navigation = [
   { name: 'Dashboard', href: '#' },
@@ -9,8 +12,18 @@ const navigation = [
   { name: 'Contact', href: '#' },
 ];
 
-const Navbar = () => {
+const Navbar = ({user}) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const navigate = useNavigate()
+  const handleLogout = async () => {
+    try {
+      let res = await axiosInstance.get('/auth/logout')
+      toast.success(res.data.msg)
+      navigate('/')
+    } catch (error) {
+      toast.error(error.message)
+    }
+  }
 
   return (
     <div className="bg-white">
@@ -40,14 +53,20 @@ const Navbar = () => {
           <div className="hidden lg:flex lg:gap-x-12">
             {navigation.map((item) => (
               <a key={item.name} href={item.href} className="text-sm/6 font-semibold  text-gray-900  py-1 px-2 rounded-md hover:bg-gray-200 transition-all">
-                {item.name}
+               {item.name}
               </a>
             ))}
           </div>
           <div className="hidden lg:flex lg:flex-1 lg:justify-end">
-            <a href="#" className="text-sm font-semibold text-gray-900 hover:text-xl transition-all">
+            {!user ? (
+            <a onClick={() => navigate('/login')} className=" cursor-pointer text-sm font-semibold text-gray-900 hover:text-xl transition-all">
               Log in <span aria-hidden="true">&rarr;</span>
             </a>
+            ) : (
+            <a onClick={handleLogout} className=" cursor-pointer text-sm font-semibold text-gray-900 hover:text-xl transition-all">
+              Log out <span aria-hidden="true">&rarr;</span>
+            </a>
+            )}
           </div>
         </nav>
         <Dialog open={mobileMenuOpen} onClose={setMobileMenuOpen} className="lg:hidden">
