@@ -1,4 +1,4 @@
-import Reactfrom "react";
+import React from "react";
 import Navbar from "./Navbar";
 import Chart from "react-apexcharts";
 import { Filter } from "lucide-react";

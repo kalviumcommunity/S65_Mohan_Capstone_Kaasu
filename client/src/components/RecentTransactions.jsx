@@ -12,9 +12,9 @@ const RecentTransactions = () => {
     <div className="w-80 bg-white border border-gray-300 rounded-xl p-4 max-h-full overflow-y-auto">
       <h2 className="text-xl font-semibold mb-3">Recent Transactions</h2>
       <ul>
-        {transactions.slice(0, 5).map((transaction) => (
+        {transactions && transactions.slice(0, 5).map((transaction) => (
           <li
-            key={transaction.id}
+            key={transaction._id}
             className="flex justify-between items-center p-2 border-b last:border-none"
           >
             <div>

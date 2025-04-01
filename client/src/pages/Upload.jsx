@@ -1,10 +1,12 @@
 import React from 'react'
 import Hero from '../components/Hero'
+import Navbar from '../components/Navbar'
 
-const Upload = () => {
+const Upload = ({user}) => {
   return (
-    <div>
-        <Hero />
+    <div style={{padding: '0 200px'}}>
+        <Navbar user={user}/>
+        <Hero user={user}/>
     </div>
   )
 }
