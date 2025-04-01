@@ -1,4 +1,5 @@
 const Transaction = require("../models/transaction.model");
+const processPDF = require('../utils/ai')
 
 const createTransaction = async (req, res) => {
     const userId = req.user.userId
@@ -86,11 +87,27 @@ const deleteTransaction = async (req, res) => {
         return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
     }
 };
+const uploadPDF = async (req,res) => {
+    try {
+    const transactions = await processPDF(`${req.file.path}`)
 
+    const uidTransactions = transactions.transactions.map(el => ({
+        userId: req.user.id, 
+        ...el
+    }));
+    
+    const newTransactions = await Transaction.insertMany(uidTransactions, {ordered: true})
+    res.status(200).json({newTransactions})
+
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
+    }
+}
 module.exports = { 
     createTransaction, 
     getUserTransactions, 
     getFamilyTransactions, 
     editTransaction, 
-    deleteTransaction 
+    deleteTransaction ,
+    uploadPDF
 };
