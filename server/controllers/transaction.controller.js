@@ -2,7 +2,7 @@ const Transaction = require("../models/transaction.model");
 const processPDF = require('../utils/ai')
 
 const createTransaction = async (req, res) => {
-    const userId = req.user.userId
+    const userId = req.user.id
     const familyId = req.user.familyId
     const { amount, status, category, date, description } = req.body;
 
@@ -19,7 +19,7 @@ const createTransaction = async (req, res) => {
 
 const getUserTransactions = async (req, res) => {
     try {
-        const userId = req.user.userId
+        const userId = req.user.id
         const transactions = await Transaction.find({ userId });
 
         if (!transactions.length) {
