@@ -1,8 +1,10 @@
 import React from 'react'
 import FinancialChart from './FinancialChart'
+import { useNavigate } from 'react-router-dom'
 
 
 const Overview = () => {
+  const navigate = useNavigate()
 
   return (
     <div className="maincursor-pointer">
@@ -23,7 +25,7 @@ const Overview = () => {
         <p className='text-right text-sm'>this month</p>
       </div>
       <div className="upload">
-        <button className='bg-black text-white px-3 py-2 text-lg rounded-lg items-end'>Upload</button>
+        <button onClick={() => navigate('/upload')} className='bg-black text-white px-3 py-2 text-lg rounded-lg items-end'>Upload</button>
       </div>
     </div>
     <div className="main">

@@ -4,11 +4,11 @@ import Hero from '../components/Hero'
 import Main from '../components/Main'
 import Footer from '../components/Footer'
 
-const Landing = () => {
+const Landing = ({user}) => {
   return (
-    <div>
+    <div style={{padding: '0 200px'}}>
       <Navbar />
-      <Hero />
+      <Hero user={user}/>
       <Main />
       <Footer />
     </div>
