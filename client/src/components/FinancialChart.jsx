@@ -1,10 +1,11 @@
-import React from "react";
+import Reactfrom "react";
 import Navbar from "./Navbar";
 import Chart from "react-apexcharts";
 import { Filter } from "lucide-react";
 import RecentTransactions from "./RecentTransactions";
 
 const FinancialChart = () => {
+
   const options = {
     chart: {
       type: 'area',

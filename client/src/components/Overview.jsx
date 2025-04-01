@@ -1,7 +1,9 @@
 import React from 'react'
 import FinancialChart from './FinancialChart'
 
+
 const Overview = () => {
+
   return (
     <div className="maincursor-pointer">
     <div className=" px-8 py-10 flex justify-start gap-10 items-center">
