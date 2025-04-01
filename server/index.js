@@ -6,6 +6,8 @@ const cookieParser = require('cookie-parser')
 const authMiddleware = require('./middlewares/auth.middleware')
 const cors = require('cors')
 
+
+
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
@@ -16,6 +18,7 @@ app.use('/api/auth', require('./routes/user.route'))
 app.use('/api/transaction', authMiddleware,require('./routes/transaction.route'))
 app.use('/api/budget',authMiddleware, require('./routes/budget.route'))
 app.use('/api/family',authMiddleware, require('./routes/family.route'))
+
 
 const PORT = 3000
 app.listen(PORT, () => {

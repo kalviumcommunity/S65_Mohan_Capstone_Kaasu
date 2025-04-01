@@ -6,7 +6,7 @@ import Login from './pages/Login'
 import Signup from './pages/Signup'
 import userAuthStore from './stores/userAuthStore'
 import Dashboard from './pages/Dashboard'
-
+import Upload from './pages/Upload'
 
 
 
@@ -24,6 +24,7 @@ const App = () => {
       <Route path='/' element={user ? <Dashboard user={user}/> : <Landing />} />
       <Route path='/login' element={!user ? <Login /> : <Dashboard user={user} />} />
       <Route path='/dashboard' element={user ? <Dashboard user={user} />:<Landing />} />
+      <Route path='/upload' element={user ? <Upload user={user} />:<Landing />} />
       <Route path='/signup' element={!user ? <Signup /> : <Dashboard user={user} />} />
     </Routes>
   )
