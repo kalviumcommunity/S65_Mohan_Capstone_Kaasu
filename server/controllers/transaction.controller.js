@@ -25,7 +25,6 @@ const getUserTransactions = async (req, res) => {
         if (!transactions.length) {
             return res.status(404).json({ msg: "No Transactions Found" });
         }
-        
         return res.status(200).json({ msg: "Transactions Found Successfully", transactions });
     } catch (error) {
         console.error(error);
@@ -95,11 +94,12 @@ const uploadPDF = async (req,res) => {
         userId: req.user.id, 
         ...el
     }));
-    
-    const newTransactions = await Transaction.insertMany(uidTransactions, {ordered: true})
+    console.log(uidTransactions)
+    const newTransactions = await Transaction.insertMany(uidTransactions)
     res.status(200).json({newTransactions})
 
     } catch (error) {
+        console.log(error.message)
         return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
     }
 }

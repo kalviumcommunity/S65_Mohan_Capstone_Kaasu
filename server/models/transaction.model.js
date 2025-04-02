@@ -7,7 +7,7 @@ const TransactionSchema = new mongoose.Schema({
   amount: { type: Number}, 
   role: { type: String, enum: ["Out", "In"] }, 
   
-  date: { type: Date }, 
+  date: { type: String }, 
   value_date: { type: String }, 
   
   description: { type: String, }, 
