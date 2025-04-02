@@ -14,7 +14,6 @@ const extractTextFromPDF = async (pdfPath) => {
 };
 
 const cleanJsonResponse = (rawText) => {
-  // Remove triple backticks and potential "json" label
   return rawText.replace(/```json|```/g, "").trim();
 };
 
@@ -27,7 +26,7 @@ const getGeminiExplanation = async (text) => {
         {
           parts: [
             {
-              text: `Just give me the transactions grouped with categories in JSON format. Return only the JSON, no extra text:\n\n${text}`,
+              text: `Just give me the transactions grouped with categories with the balance in JSON format. Return only the JSON, no extra text:\n\n${text}`,
             },
           ],
         },

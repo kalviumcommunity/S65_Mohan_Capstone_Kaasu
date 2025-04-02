@@ -5,7 +5,7 @@ require('dotenv').config()
 const cookieParser = require('cookie-parser')
 const authMiddleware = require('./middlewares/auth.middleware')
 const cors = require('cors')
-
+const getInsights = require('./utils/insights')
 
 
 app.use(cookieParser())
@@ -24,6 +24,7 @@ const PORT = 3000
 app.listen(PORT, () => {
     try {
         connectDB()
+        // getInsights()
         console.log(`Server is Running at ${PORT}`)
     } catch (error) {
         console.error("Error: ", error.message)
