@@ -1,5 +1,7 @@
 const Transaction = require("../models/transaction.model");
 const processPDF = require('../utils/ai')
+const getInsights = require('../utils/insights')
+const User = require('../models/user.model')
 
 const createTransaction = async (req, res) => {
     const userId = req.user.id
@@ -88,15 +90,17 @@ const deleteTransaction = async (req, res) => {
 };
 const uploadPDF = async (req,res) => {
     try {
-    const transactions = await processPDF(`${req.file.path}`)
-
-    const uidTransactions = transactions.transactions.map(el => ({
+    const {parsedJson, insights} = await processPDF(`${req.file.path}`)
+    // const transactionToString = JSON.stringify(transactions)
+    // console.log(transactionToString)
+    // const insights = await getInsights(transactionToString)
+    const user = await User.findByIdAndUpdate(req.user.id, {insights})
+    const uidTransactions = parsedJson.transactions.map(el => ({
         userId: req.user.id, 
         ...el
     }));
-    console.log(uidTransactions)
     const newTransactions = await Transaction.insertMany(uidTransactions)
-    res.status(200).json({newTransactions})
+    res.status(200).json({newTransactions, user})
 
     } catch (error) {
         console.log(error.message)

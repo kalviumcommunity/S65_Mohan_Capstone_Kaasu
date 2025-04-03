@@ -68,7 +68,7 @@ const Transactions = () => {
             <tbody>
               {transactions && transactions.map((transaction) => (
                 <tr key={transaction._id} className="border-b last:border-none">
-                  <td className="p-3 text-gray-500">{transaction.date.split('T')[0]}</td>
+                  <td className="p-3 text-gray-500">{transaction.date}</td>
                   <td className="p-3 font-medium">{transaction.description.split("/")[3]}</td>
                   <td className="p-3 text-gray-600">{transaction.category}</td>
                   {transaction.debit ? (<td className='text-red-600 font-semibold'>-{transaction.debit}</td> ): (<td className='font-semibold text-green-600'>+{transaction.credit}</td> )}

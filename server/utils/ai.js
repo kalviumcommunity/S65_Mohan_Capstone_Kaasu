@@ -1,6 +1,8 @@
 const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const axios = require("axios");
+const getInsights = require('./insights')
+const User = require('../models/user.model')
 
 const extractTextFromPDF = async (pdfPath) => {
   try {
@@ -26,7 +28,15 @@ const getGeminiExplanation = async (text) => {
         {
           parts: [
             {
-              text: `Just give me the transactions grouped with categories with the balance in JSON format. Return only the JSON, no extra text:\n\n${text}`,
+              text: `Just give me the transactions grouped with categories with the balance in JSON format. Return only the JSON, no extra text in this format {
+  transactions: [
+    {
+      date: '01-03-2025',
+      description: 'UPI/DR/506015304416/S KOKILA/IOBA/**shjai@okhdfcbank/UPI//NEF61d784017cf94cf3af3ad9f232efc3a9/01/03/2025 15:46:05',
+      debit: 106,
+      credit: null,
+      balance: 844.64
+            }]:\n\n${text}`,
             },
           ],
         },
@@ -44,6 +54,7 @@ const getGeminiExplanation = async (text) => {
       response.data.candidates[0].content.parts[0].text
     ) {
       const rawJson = response.data.candidates[0].content.parts[0].text;
+      const insights = await getInsights(rawJson)
 
       // Clean the JSON response
       const cleanedJson = cleanJsonResponse(rawJson);
@@ -55,7 +66,7 @@ const getGeminiExplanation = async (text) => {
         // Save to output.json
         fs.writeFileSync("output.json", JSON.stringify(parsedJson, null, 2));
 
-        return parsedJson;
+        return {parsedJson, insights};
       } catch (error) {
         console.error("Error parsing JSON from Gemini response:", error);
         console.error("Raw response:", cleanedJson);
