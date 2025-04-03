@@ -5,7 +5,8 @@ const UserSchema = new mongoose.Schema({
     email: String,
     password: String,
     role: { type: String, enum: ["Admin", "Member", "Viewer"], default: "Member" },
-    familyId: { type: mongoose.Schema.Types.ObjectId, ref: "Family" }
+    familyId: { type: mongoose.Schema.Types.ObjectId, ref: "Family" },
+    insights: {type: String, default: ""}
   });
   
 

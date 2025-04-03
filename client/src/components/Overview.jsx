@@ -1,11 +1,15 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import FinancialChart from './FinancialChart'
 import { useNavigate } from 'react-router-dom'
-
+import userAuthStore from '../stores/userAuthStore'
+import ReactMarkdown from 'react-markdown'
 
 const Overview = () => {
   const navigate = useNavigate()
-
+  const {user,getProfile} = userAuthStore()
+  useEffect(() => {
+    getProfile()
+  }, [getProfile])
   return (
     <div className="maincursor-pointer">
     <div className=" px-8 py-10 flex justify-start gap-10 items-center">
@@ -36,9 +40,7 @@ const Overview = () => {
     <div className="bg-yellow-100 p-10 my-4 rounded-lg border border-2-yellow-700">
       <h1 className='text-2xl font-bold'>AI Insights</h1>
      <ul>
-        <li>You are Spent a lot this month so adjust your spending ...</li>
-        <li>You are Spent a lot this month so adjust your spending ...</li>
-        <li>You are Spent a lot this month so adjust your spending ...</li>
+        <ReactMarkdown>{user&& user.insights}</ReactMarkdown>
       </ul>
     </div>
   </div>

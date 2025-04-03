@@ -3,7 +3,6 @@ import React, { useState } from 'react'
 import Overview from '../components/Overview'
 import Transactions from '../components/Transactions'
 import Family from '../components/Family'
-import { useNavigate } from 'react-router-dom'
 import Navbar from '../components/Navbar'
 
 

@@ -3,248 +3,138 @@
     {
       "date": "01-03-2025",
       "description": "UPI/DR/506015304416/S KOKILA/IOBA/**shjai@okhdfcbank/UPI//NEF61d784017cf94cf3af3ad9f232efc3a9/01/03/2025 15:46:05",
-      "category": "UPI Payment",
-      "debit": 6,
-      "credit": 0,
-      "balance": 844.64
+      "debit": 106,
+      "credit": null,
+      "balance": 844.64,
+      "category": "UPI Payment"
     },
     {
       "date": "01-03-2025",
       "description": "UPI/DR/506028316196/Aadhityaa/SBIN/**61114@slc/UPI//NEFde7177617f5945358d5f3440195cf527/01/03/2025 16:26:15",
-      "category": "UPI Payment",
-      "debit": 5,
-      "credit": 0,
-      "balance": 794.64
+      "debit": 50,
+      "credit": null,
+      "balance": 794.64,
+      "category": "UPI Payment"
     },
     {
       "date": "02-03-2025",
       "description": "UPI/DR/506132319922/Mr Kishoo/CIUB/**re004@okhdfcbank/UPI//NEFc5b79c30363e476f9fb442dbd2899325/02/03/2025 00:32:13",
-      "category": "UPI Payment",
       "debit": 75,
-      "credit": 0,
-      "balance": 719.64
+      "credit": null,
+      "balance": 719.64,
+      "category": "UPI Payment"
     },
     {
       "date": "02-03-2025",
       "description": "UPI/DR/506151223719/WH Smith/YESB/**unjab@ybl/Payment //NEF5e5a4f8e152c43878871984284859bc1/02/03/2025 11:17:33",
-      "category": "UPI Payment",
       "debit": 30,
-      "credit": 0,
-      "balance": 689.64
+      "credit": null,
+      "balance": 689.64,
+      "category": "UPI Payment"
     },
     {
       "date": "02-03-2025",
       "description": "UPI/DR/506184676277/WH Smith/YESB/**unjab@ybl/Payment //NEF0944a69cbbbb471cacb5c4462c72a1e6/02/03/2025 22:19:28",
-      "category": "UPI Payment",
       "debit": 25,
-      "credit": 0,
-      "balance": 664.64
+      "credit": null,
+      "balance": 664.64,
+      "category": "UPI Payment"
     },
     {
       "date": "03-03-2025",
       "description": "UPI/DR/506295293141/Mr Kishoo/CIUB/**13821@slc/UPI//NEF46e8895abbd74609a27a7da87016ff3c/03/03/2025 12:23:35",
-      "category": "UPI Payment",
       "debit": 12.5,
-      "credit": 0,
-      "balance": 652.14
+      "credit": null,
+      "balance": 652.14,
+      "category": "UPI Payment"
     },
     {
       "date": "03-03-2025",
       "description": "UPI/DR/506275894803/LE BROC 4/YESB/**17bnr@pty/UPI//NEF1f71d9ad19364f8fba19c3c12780f4b3/03/03/2025 17:58:21",
-      "category": "UPI Payment",
       "debit": 40,
-      "credit": 0,
-      "balance": 612.14
+      "credit": null,
+      "balance": 612.14,
+      "category": "UPI Payment"
     },
     {
       "date": "03-03-2025",
       "description": "UPI/DR/506246419106/DAVINDER /YESB/**73763@ybl/UPI//NEF885e76edd5df46d2b996324e897b7d54/03/03/2025 19:08:12",
-      "category": "UPI Payment",
       "debit": 90,
-      "credit": 0,
-      "balance": 522.14
+      "credit": null,
+      "balance": 522.14,
+      "category": "UPI Payment"
     },
     {
       "date": "03-03-2025",
       "description": "UPI/CR/506299230252/Aadhityaa/SBIN/**ityaa@oksbi/UPI//SBI8c9f456bddf446ad8a0126b1b3bdef0e/03/03/2025 19:08:32",
-      "category": "UPI Payment",
-      "debit": 0,
+      "debit": null,
       "credit": 30,
-      "balance": 552.14
+      "balance": 552.14,
+      "category": "UPI Payment"
     },
     {
       "date": "03-03-2025",
       "description": "UPI/CR/506206805552/Bharanidh/PPIW/**04096@fam/UPI Paym//TOT1290F8B7D78341D1B38743C25B990C49/03/03/2025 19:09:32",
-      "category": "UPI Payment",
-      "debit": 0,
+      "debit": null,
       "credit": 30,
-      "balance": 582.14
+      "balance": 582.14,
+      "category": "UPI Payment"
     },
     {
       "date": "04-03-2025",
       "description": "UPI/DR/506319266032/WH Smith/YESB/**unjab@ybl/Payment //NEF8551fd53d1fa4cd380705e8ec1eea0d5/04/03/2025 18:31:11",
-      "category": "UPI Payment",
       "debit": 20,
-      "credit": 0,
-      "balance": 562.14
+      "credit": null,
+      "balance": 562.14,
+      "category": "UPI Payment"
     },
     {
       "date": "04-03-2025",
       "description": "UPI/DR/506378350503/WH Smith/YESB/**unjab@ybl/Payment //NEF032b85e38c3640ae8e5c063490dfdad6/04/03/2025 20:56:46",
-      "category": "UPI Payment",
       "debit": 55,
-      "credit": 0,
-      "balance": 507.14
+      "credit": null,
+      "balance": 507.14,
+      "category": "UPI Payment"
     },
     {
       "date": "05-03-2025",
       "description": "UPI/CR/506462838134/Hrithik  /SBIN/**51127@slc/UPI//NEF2225bd8f27bc49808a8ea96fd01fce2e/05/03/2025 16:48:18",
-      "category": "UPI Payment",
-      "debit": 0,
+      "debit": null,
       "credit": 20,
-      "balance": 527.14
+      "balance": 527.14,
+      "category": "UPI Payment"
     },
     {
       "date": "05-03-2025",
       "description": "UPI/CR/506411697632/G R Monish/PPIW/**ish07@fam/UPI Paym//TOTD4081EC30EEF4403AD631E6444E3BC2D/05/03/2025 16:49:01",
-      "category": "UPI Payment",
-      "debit": 0,
+      "debit": null,
       "credit": 30,
-      "balance": 557.14
+      "balance": 557.14,
+      "category": "UPI Payment"
     },
     {
       "date": "05-03-2025",
       "description": "UPI/DR/506499508674/DAVINDER /YESB/**73763@ybl/UPI//NEFa9f9f85accab49ef954a00b0a08a888a/05/03/2025 16:49:20",
-      "category": "UPI Payment",
       "debit": 120,
-      "credit": 0,
-      "balance": 437.14
+      "credit": null,
+      "balance": 437.14,
+      "category": "UPI Payment"
     },
     {
       "date": "05-03-2025",
       "description": "UPI/DR/506460203811/Bharanidh/PPIW/**04096@fam/UPI//NEFa4e6aaccf91545939d4f994ca20f1dad/05/03/2025 19:46:40",
-      "category": "UPI Payment",
       "debit": 100,
-      "credit": 0,
-      "balance": 337.14
+      "credit": null,
+      "balance": 337.14,
+      "category": "UPI Payment"
     },
     {
       "date": "05-03-2025",
       "description": "UPI/CR/543079424633/ALBIN SHI/UBIN/**ju285@okicici/UPI//ICI7bba654ba62142799c37b8ea9be32600/05/03/2025 19:56:01",
-      "category": "UPI Payment",
-      "debit": 0,
+      "debit": null,
       "credit": 50,
-      "balance": 387.14
-    },
-    {
-      "date": "06-03-2025",
-      "description": "UPI/CR/235821486833/AYYAPPARA/SBIN/**54879@ibl/Payment //IBL2b3d4ac27d6b4a028946fdfc61325bd4/06/03/2025 18:49:53",
-      "category": "UPI Payment",
-      "debit": 0,
-      "credit": 2000,
-      "balance": 2387.14
-    },
-    {
-      "date": "06-03-2025",
-      "description": "UPI/DR/506529281536/Aadhityaa/SBIN/**61114@slc/UPI//NEF77e1f00155a94e9cafd004083aae630f/06/03/2025 19:19:18",
-      "category": "UPI Payment",
-      "debit": 10,
-      "credit": 0,
-      "balance": 2377.14
-    },
-    {
-      "date": "07-03-2025",
-      "description": "UPI/DR/506619612583/Hrithik V/PPIW/**51127@slice/UPI//NEF31113caa87cc403e8ec3e8ff6249817f/07/03/2025 10:16:00",
-      "category": "UPI Payment",
-      "debit": 40,
-      "credit": 0,
-      "balance": 2337.14
-    },
-    {
-      "date": "07-03-2025",
-      "description": "UPI/CR/506617070333/G R Monish/PPIW/**ish07@fam/UPI Paym//TOT46E608C5572A41E6837174BA348F7686/07/03/2025 16:13:44",
-      "category": "UPI Payment",
-      "debit": 0,
-      "credit": 27.5,
-      "balance": 2364.64
-    },
-    {
-      "date": "08-03-2025",
-      "description": "UPI/DR/506796757025/Indian Cl/ICIC/**ments@icici/Indian C//ICI4da93af97d9846ffbcd7b20fa840d046/08/03/2025 06:38:33",
-      "category": "UPI Payment",
-      "debit": 100,
-      "credit": 0,
-      "balance": 2264.64
-    },
-    {
-      "date": "09-03-2025",
-      "description": "UPI/DR/506835044507/Jio/YESB/**l3066@ptybl/Sent usi//PYTM50309802050522625029XXXXXXXXXXX/09/03/2025 07:29:33",
-      "category": "UPI Payment",
-      "debit": 19,
-      "credit": 0,
-      "balance": 2245.64
-    },
-    {
-      "date": "09-03-2025",
-      "description": "UPI/DR/506871542856/ASHVITHA /SBIN/**09261@slc/UPI//NEF10625bba70274fffb7c2cefcbc6dccf3/09/03/2025 21:14:57",
-      "category": "UPI Payment",
-      "debit": 75,
-      "credit": 0,
-      "balance": 2170.64
-    },
-    {
-      "date": "09-03-2025",
-      "description": "UPI/DR/506897723497/ASHVITHA /SBIN/**09261@slc/UPI//NEF6fd6750d01ea4e61a94a1a5548e2cbb5/09/03/2025 22:57:01",
-      "category": "UPI Payment",
-      "debit": 50,
-      "credit": 0,
-      "balance": 2120.64
-    },
-    {
-      "date": "10-03-2025",
-      "description": "UPI/CR/506992946934/Hrithik  /SBIN/**51127@slc/UPI//NEF9d01016f20874192b71729564c1b103a/10/03/2025 16:27:43",
-      "category": "UPI Payment",
-      "debit": 0,
-      "credit": 15,
-      "balance": 2135.64
-    },
-    {
-      "date": "10-03-2025",
-      "description": "UPI/DR/101257291214/METROEMOB/UTIB/**9.rzp@axisbank/Addamoun//HDF49186021206e4cdf96725d2fefb8e0a3/10/03/2025 16:48:01",
-      "category": "UPI Payment",
-      "debit": 40,
-      "credit": 0,
-      "balance": 2095.64
-    },
-    {
-      "date": "12-03-2025",
-      "description": "UPI/CR/507179417022/MUTHUMARI/CNRB/**988-1@okaxis/UPI//AXId88cff45c80d4da9ade413fc6edce8de/12/03/2025 18:06:28",
-      "category": "UPI Payment",
-      "debit": 0,
-      "credit": 10,
-      "balance": 2105.64
-    },
-    {
-      "date": "22-03-2025",
-      "description": "SMS CHARGES ON ACTUAL BASIS",
-      "category": "Service Charges",
-      "debit": 29,
-      "credit": 0,
-      "balance": 2076.64
-    },
-    {
-      "date": "28-03-2025",
-      "description": "SBINT FOR THE PERIOD FROM01-FEB-25 TO 27-MAR-25",
-      "category": "Interest",
-      "debit": 0,
-      "credit": 6,
-      "balance": 2082.64
+      "balance": 387.14,
+      "category": "UPI Payment"
     }
-  ],
-  "summary": {
-    "opening_balance": 950.64,
-    "closing_balance": 2082.64,
-    "total_debit": 841.5,
-    "total_credit": 1973.5
-  }
+  ]
 }
