@@ -2,7 +2,9 @@ const fs = require("fs");
 const pdfParse = require("pdf-parse");
 const axios = require("axios");
 const getInsights = require('./insights')
-const User = require('../models/user.model')
+const getInfo = require('./info')
+
+
 
 const extractTextFromPDF = async (pdfPath) => {
   try {
@@ -55,7 +57,7 @@ const getGeminiExplanation = async (text) => {
     ) {
       const rawJson = response.data.candidates[0].content.parts[0].text;
       const insights = await getInsights(rawJson)
-
+      const info = await getInfo(rawJson)
       // Clean the JSON response
       const cleanedJson = cleanJsonResponse(rawJson);
 
@@ -66,7 +68,7 @@ const getGeminiExplanation = async (text) => {
         // Save to output.json
         fs.writeFileSync("output.json", JSON.stringify(parsedJson, null, 2));
 
-        return {parsedJson, insights};
+        return {parsedJson, insights, info};
       } catch (error) {
         console.error("Error parsing JSON from Gemini response:", error);
         console.error("Raw response:", cleanedJson);
