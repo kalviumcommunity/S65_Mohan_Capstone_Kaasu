@@ -90,11 +90,13 @@ const deleteTransaction = async (req, res) => {
 };
 const uploadPDF = async (req,res) => {
     try {
-    const {parsedJson, insights} = await processPDF(`${req.file.path}`)
+    const {parsedJson, insights, info} = await processPDF(`${req.file.path}`)
     // const transactionToString = JSON.stringify(transactions)
     // console.log(transactionToString)
     // const insights = await getInsights(transactionToString)
-    const user = await User.findByIdAndUpdate(req.user.id, {insights})
+
+    const newInfo = JSON.parse(info)
+    const user = await User.findByIdAndUpdate(req.user.id, {insights, balance: newInfo[0], expenses: newInfo[1]})
     const uidTransactions = parsedJson.transactions.map(el => ({
         userId: req.user.id, 
         ...el

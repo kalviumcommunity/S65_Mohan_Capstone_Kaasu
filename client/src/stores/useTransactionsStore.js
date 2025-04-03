@@ -11,6 +11,15 @@ const useTransactionStore = create((set) => ({
         } catch (error) {
             console.log(error.message)
         }
+    },
+    editTransaction: async (transaction) =>  {
+        
+        try {
+            let res = await axiosInstance.put(`/transaction/edit/${transaction._id}`,transaction )
+            console.log(res.data)
+        } catch (error) {
+            console.log(error.message)
+        }
     }
 }))
 

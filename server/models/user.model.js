@@ -6,7 +6,9 @@ const UserSchema = new mongoose.Schema({
     password: String,
     role: { type: String, enum: ["Admin", "Member", "Viewer"], default: "Member" },
     familyId: { type: mongoose.Schema.Types.ObjectId, ref: "Family" },
-    insights: {type: String, default: ""}
+    insights: {type: String, default: ""},
+    balance: {type: String, default: "0"},
+    expenses: {type: String, default: "0"}
   });
   
 
