@@ -8,7 +8,7 @@ import useTransactionStore from "../stores/useTransactionsStore";
 const FinancialChart = () => {
 
   const { transactions, getTransactions } = useTransactionStore();
-
+  
   useEffect(() => {
     getTransactions();
   }, [getTransactions]);

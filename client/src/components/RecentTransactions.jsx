@@ -12,7 +12,7 @@ const RecentTransactions = ({transactions}) => {
             className="flex justify-between items-center p-2 border-b last:border-none"
           >
             <div>
-              <p className="font-medium">{transaction.description?.split("/")[3] || 'N/A'}</p>
+              <p className="font-medium">{transaction.description || 'N/A'}</p>
               <p className="text-sm text-gray-500">{transaction.category}</p>
             </div>
             {transaction.debit ? (<p className='text-red-600 font-semibold'>-{transaction.debit}</p> ): (<p className='font-semibold text-green-600'>+{transaction.credit}</p> )}
