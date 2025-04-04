@@ -13,7 +13,7 @@ const Transactions = () => {
     getTransactions();
   }, [getTransactions]);
 
-  const filteredTransactions = transactions
+  const filteredTransaction = transactions
     .filter((t) => {
       const query = searchQuery.toLowerCase();
       const name = t.description.toLowerCase();
@@ -92,8 +92,8 @@ const Transactions = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTransactions &&
-                filteredTransactions.map((transaction) => (
+              {filteredTransaction &&
+                filteredTransaction.map((transaction) => (
                   <tr
                     key={transaction._id}
                     className="border-b last:border-none"
