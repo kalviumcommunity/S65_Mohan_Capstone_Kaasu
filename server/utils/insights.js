@@ -7,7 +7,7 @@ const getInsights = async (data) => {
             {
               parts: [
                 {
-                  text: `Give me the Insights of this Transactions: ${data}`,
+                  text: `Give me the Insights of this Transactions it must be sort and concise and the way to save money: ${data}`,
                 },
               ],
             },

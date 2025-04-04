@@ -25,7 +25,7 @@ const Overview = () => {
       </div>
       <div className='bg-gray-100 w-52 p-3 rounded-lg border border-gray-300'>
         <p className='font-medium '>Total Savings</p>
-        <h1 className='text-4xl text-center font-extrabold'>$3,000</h1>
+        <h1 className='text-4xl text-center font-extrabold'>$0</h1>
         <p className='text-right text-sm'>this month</p>
       </div>
       <div className="upload">

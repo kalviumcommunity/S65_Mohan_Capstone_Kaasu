@@ -6,7 +6,7 @@ const Transactions = () => {
   const { transactions, getTransactions, editTransaction } = useTransactionStore();
   const [openPopup, setOpenPopup] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-
+  console.log(transactions)
   useEffect(() => {
     getTransactions();
   }, [getTransactions]);
@@ -51,7 +51,7 @@ const Transactions = () => {
               {transactions && transactions.map((transaction) => (
                 <tr key={transaction._id} className="border-b last:border-none">
                   <td className="p-3 text-gray-500">{transaction.date}</td>
-                  <td className="p-3 font-medium">{transaction.description.split("/")[3]}</td>
+                  <td className="p-3 font-medium">{transaction.description}</td>
                   <td className="p-3 text-gray-600">{transaction.category}</td>
                   {transaction.debit ? (
                     <td className='text-red-600 font-semibold'>-{transaction.debit}</td>
@@ -85,7 +85,7 @@ const Transactions = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Name</label>
-                  <input type="text" name="description" className="border p-2 rounded" value={selectedTransaction.description.split("/")[3]} onChange={handleChange} readOnly/>
+                  <input type="text" name="description" className="border p-2 rounded" value={selectedTransaction.name} onChange={handleChange}/>
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Category</label>
@@ -93,7 +93,7 @@ const Transactions = () => {
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Type</label>
-                  <select name="type" className="border p-2 rounded" value={selectedTransaction.debit ? "debit" : "credit"} onChange={handleChange} disabled>
+                  <select name="type" className="border p-2 rounded" value={selectedTransaction.debit ? "debit" : "credit"} onChange={handleChange}>
                     <option value="credit">Credit</option>
                     <option value="debit">Debit</option>
                   </select>

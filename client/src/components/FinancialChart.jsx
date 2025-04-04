@@ -1,10 +1,42 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Navbar from "./Navbar";
 import Chart from "react-apexcharts";
 import { Filter } from "lucide-react";
 import RecentTransactions from "./RecentTransactions";
+import useTransactionStore from "../stores/useTransactionsStore";
 
 const FinancialChart = () => {
+
+  const { transactions, getTransactions } = useTransactionStore();
+  
+  useEffect(() => {
+    getTransactions();
+  }, [getTransactions]);
+  
+  const getExpense = () => {
+    let expenses = [0,0,0,0,0,0,0,0,0,0,0,0]
+    if (transactions) transactions.forEach(el => {
+      
+      if (el.debit){
+        let month = Number(el.date.split('-')[1])
+        expenses[month-1] += el.debit
+      }
+    })
+    return expenses
+  }
+  const getIncome = () => {
+    let income = [0,0,0,0,0,0,0,0,0,0,0,0]
+    if (transactions) transactions.forEach(el => {
+      
+      if (el.credit){
+        let month = Number(el.date.split('-')[1])
+        income[month-1] += el.credit
+      }
+    })
+    return income
+  }
+
+
 
   const options = {
     chart: {
@@ -32,7 +64,7 @@ const FinancialChart = () => {
       }
     },
     xaxis: {
-      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep'],
+      categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
       labels: {
         style: {
           fontSize: '12px',
@@ -86,11 +118,11 @@ const FinancialChart = () => {
   const series = [
     {
       name: 'Income',
-      data: [6500, 7800, 7200, 8100, 7500, 9000, 8800, 9200, 8500]
+      data: getIncome()
     },
     {
       name: 'Expenses',
-      data: [3200, 3900, 3300, 3800, 3600, 4200, 4500, 4300, 4100]
+      data: getExpense()
     }
   ];
 
@@ -117,7 +149,7 @@ const FinancialChart = () => {
           </div>
           <Chart options={options} series={series} type="area" height={280} />
         </div>
-        <RecentTransactions />
+        <RecentTransactions  transactions={transactions}/>
       </div>
     </div>
   );

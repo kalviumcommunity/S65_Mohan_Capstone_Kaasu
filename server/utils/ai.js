@@ -33,8 +33,9 @@ const getGeminiExplanation = async (text) => {
               text: `Just give me the transactions grouped with categories with the balance in JSON format. Return only the JSON, no extra text in this format {
   transactions: [
     {
-      date: '01-03-2025',
-      description: 'UPI/DR/506015304416/S KOKILA/IOBA/**shjai@okhdfcbank/UPI//NEF61d784017cf94cf3af3ad9f232efc3a9/01/03/2025 15:46:05',
+      date: '01-03-2025' //make sure date in this formate,
+      description: 'UPI/DR/506015304416/S KOKILA/IOBA/**shjai@okhdfcbank/UPI//NEF61d784017cf94cf3af3ad9f232efc3a9/01/03/2025 15:46:05', // here extract the main name like here is S Kokila,
+      category: UPI Payment,
       debit: 106,
       credit: null,
       balance: 844.64

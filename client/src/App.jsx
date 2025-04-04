@@ -29,6 +29,7 @@ const App = () => {
       <Route path='/upload' element={user ? <Upload user={user}/>:<Landing />} />
       <Route path='/profile' element={user ? <Profile user={user}/>:<Landing />} />
       <Route path='/signup' element={!user ? <Signup /> : <Dashboard user={user} />} />
+
     </Routes>
   )
 }
