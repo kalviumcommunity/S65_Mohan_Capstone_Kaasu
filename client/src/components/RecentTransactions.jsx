@@ -1,13 +1,7 @@
-import React, { useEffect } from 'react';
-import useTransactionStore from '../stores/useTransactionsStore';
+import React from 'react';
 
-const RecentTransactions = () => {
-  const { transactions, getTransactions } = useTransactionStore();
-
-  useEffect(() => {
-    getTransactions();
-  }, [getTransactions]);
-
+const RecentTransactions = ({transactions}) => {
+  
   return (
     <div className="w-80 bg-white border border-gray-300 rounded-xl p-4 max-h-full overflow-y-auto">
       <h2 className="text-xl font-semibold mb-3">Recent Transactions</h2>
