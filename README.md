@@ -77,3 +77,56 @@ This project is a full-stack MERN web application designed to help individuals a
 To create an AI-powered financial planning tool that simplifies expense tracking, budgeting, and family finance management in a real-time, user-friendly, and secure manner.  
 
 ---
+
+## Want to Contribute ?
+
+### Let's Build Together
+
+Thanks for your interest in contributing!  
+We welcome bug fixes, features, ideas, or even small tweaks to make things better.
+
+---
+
+###  Getting Started
+
+1. **Clone & Install:**
+   ```bash
+   git clone https://github.com/your-username/your-repo.git
+   cd your-repo
+
+   # Backend
+   cd server && npm install && npm run dev
+
+   # Frontend (new terminal)
+   cd client && npm install && npm start
+
+2. Add .env files using .env.example as a reference.
+
+## How to Contribute
+
+1. **Fork** this repo on GitHub.
+2. **Clone** your fork:
+   ```bash
+   git clone https://github.com/your-username/your-fork.git
+   cd your-fork
+
+3. Create a branch:
+   ```bash
+   git checkout -b feature/your-feature-name or fix/issue-name
+4. Make changes, then commit:
+   ```bash
+   git add .
+   git commit -m "feat: your message"
+5. Push to your fork:
+   ```bash
+   git push origin feature/your-feature-name or fix/issue-name
+6. Open a Pull Request to the dev branch on GitHub.
+- Select dev as the base branch.
+- Add a clear title and description.
+- Click "Create pull request"
+
+---
+
+### Keep it clean, test your code, and be respectful
+
+---
