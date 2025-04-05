@@ -13,7 +13,7 @@ const Transactions = () => {
     getTransactions();
   }, [getTransactions]);
 
-  const filteredTransaction = transactions
+  const filteredTransactions = transactions
     .filter((t) => {
       const query = searchQuery.toLowerCase();
       const name = t.description.toLowerCase();
@@ -25,7 +25,7 @@ const Transactions = () => {
 
       const getRelevance = (str) => {
         if (str === query) return 3;
-        if (str.startWith(query)) return 2;
+        if (str.startsWith(query)) return 2;
         if (str.includes(query)) return 1;
         return 0;
       };
@@ -92,8 +92,8 @@ const Transactions = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTransaction &&
-                filteredTransaction.map((transaction) => (
+              {filteredTransactions &&
+                filteredTransactions.map((transaction) => (
                   <tr
                     key={transaction._id}
                     className="border-b last:border-none"
