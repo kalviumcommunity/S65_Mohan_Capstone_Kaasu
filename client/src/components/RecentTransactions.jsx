@@ -2,11 +2,14 @@ import React from "react";
 
 const RecentTransactions = ({ transactions }) => {
   return (
-    <div className="w-80 bg-white border border-gray-300 rounded-xl p-4 overflow-y-auto max-h-96 scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400">
+    <div
+      className="w-80 bg-white border border-gray-300 rounded-xl p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
+      style={{ height: "auto", maxHeight: "70vh" }}
+    >
       <h2 className="text-xl font-semibold mb-3">Recent Transactions</h2>
       <ul>
         {transactions &&
-          transactions.slice(0, 5).map((transaction) => (
+          transactions.slice(0, 14).map((transaction) => (
             <li
               key={transaction._id}
               className="flex justify-between items-center p-2 border-b last:border-none"

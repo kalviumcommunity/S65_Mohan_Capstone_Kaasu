@@ -25,7 +25,7 @@ const Transactions = () => {
 
       const getRelevance = (str) => {
         if (str === query) return 3;
-        if (str.startWith(query)) return 2;
+        if (str.startsWith(query)) return 2;
         if (str.includes(query)) return 1;
         return 0;
       };
