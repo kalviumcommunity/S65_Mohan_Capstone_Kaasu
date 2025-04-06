@@ -36,7 +36,7 @@ const Transactions = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full border-collapse">
+          <table className="w-full">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-left">
                 <th className="p-3">Date</th>
