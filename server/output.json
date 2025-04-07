@@ -1,324 +1,140 @@
 {
   "transactions": [
     {
-      "date": "05-02-2025",
-      "description": "Mr Kishoo",
+      "date": "01-03-2025",
+      "description": "S KOKILA",
       "category": "UPI Payment",
-      "debit": 15,
+      "debit": 106,
       "credit": null,
-      "balance": 2077.64
+      "balance": 844.64
     },
     {
-      "date": "06-02-2025",
+      "date": "01-03-2025",
       "description": "Aadhityaa",
       "category": "UPI Payment",
-      "debit": 60,
-      "credit": null,
-      "balance": 2017.64
-    },
-    {
-      "date": "06-02-2025",
-      "description": "Google Pl",
-      "category": "UPI Payment",
-      "debit": 59,
-      "credit": null,
-      "balance": 1958.64
-    },
-    {
-      "date": "06-02-2025",
-      "description": "Mr Kishoo",
-      "category": "UPI Payment",
-      "debit": 15,
-      "credit": null,
-      "balance": 1943.64
-    },
-    {
-      "date": "06-02-2025",
-      "description": "DOTPE",
-      "category": "UPI Payment",
-      "debit": 15,
-      "credit": null,
-      "balance": 1928.64
-    },
-    {
-      "date": "07-02-2025",
-      "description": "GUNASEKAR",
-      "category": "UPI Payment",
-      "debit": 210,
-      "credit": null,
-      "balance": 1718.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "Indian Cl",
-      "category": "UPI Payment",
-      "debit": 100,
-      "credit": null,
-      "balance": 1618.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "WH Smith",
-      "category": "UPI Payment",
-      "debit": 25,
-      "credit": null,
-      "balance": 1593.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "GUNASEKAR",
-      "category": "UPI Payment",
-      "debit": 10,
-      "credit": null,
-      "balance": 1583.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "VARINDAVA",
-      "category": "UPI Payment",
-      "debit": 20,
-      "credit": null,
-      "balance": 1563.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "G R Monish",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 10,
-      "balance": 1573.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "Campus fu",
-      "category": "UPI Payment",
-      "debit": 70,
-      "credit": null,
-      "balance": 1503.64
-    },
-    {
-      "date": "08-02-2025",
-      "description": "G R Monish",
-      "category": "UPI Payment",
-      "debit": 1000,
-      "credit": null,
-      "balance": 503.64
-    },
-    {
-      "date": "09-02-2025",
-      "description": "slice",
-      "category": "UPI Payment",
-      "debit": 11,
-      "credit": null,
-      "balance": 492.64
-    },
-    {
-      "date": "09-02-2025",
-      "description": "WH Smith",
-      "category": "UPI Payment",
       "debit": 50,
       "credit": null,
-      "balance": 442.64
+      "balance": 794.64
     },
     {
-      "date": "09-02-2025",
-      "description": "ASHVITHA",
-      "category": "UPI Payment",
-      "debit": 20,
-      "credit": null,
-      "balance": 422.64
-    },
-    {
-      "date": "09-02-2025",
-      "description": "NASRIN BA",
-      "category": "UPI Payment",
-      "debit": 120,
-      "credit": null,
-      "balance": 302.64
-    },
-    {
-      "date": "09-02-2025",
-      "description": "Moi Techn",
-      "category": "UPI Payment",
-      "debit": 1,
-      "credit": null,
-      "balance": 301.64
-    },
-    {
-      "date": "09-02-2025",
-      "description": "Moi Techn",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 1,
-      "balance": 302.64
-    },
-    {
-      "date": "10-02-2025",
-      "description": "VIANT MAL",
-      "category": "UPI Payment",
-      "debit": 99,
-      "credit": null,
-      "balance": 203.64
-    },
-    {
-      "date": "10-02-2025",
-      "description": "MOI TECHN",
-      "category": "UPI Payment",
-      "debit": 50,
-      "credit": null,
-      "balance": 153.64
-    },
-    {
-      "date": "11-02-2025",
-      "description": "MOI TECHN",
-      "category": "UPI Payment",
-      "debit": 10,
-      "credit": null,
-      "balance": 143.64
-    },
-    {
-      "date": "11-02-2025",
-      "description": "MOI TECHN",
-      "category": "UPI Payment",
-      "debit": 43,
-      "credit": null,
-      "balance": 100.64
-    },
-    {
-      "date": "12-02-2025",
-      "description": "AMIT KUMA",
-      "category": "UPI Payment",
-      "debit": 90,
-      "credit": null,
-      "balance": 10.64
-    },
-    {
-      "date": "12-02-2025",
-      "description": "Hrithik",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 30,
-      "balance": 40.64
-    },
-    {
-      "date": "12-02-2025",
-      "description": "R SARAN",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 30,
-      "balance": 70.64
-    },
-    {
-      "date": "12-02-2025",
-      "description": "MOI TECHN",
-      "category": "UPI Payment",
-      "debit": 50,
-      "credit": null,
-      "balance": 20.64
-    },
-    {
-      "date": "13-02-2025",
+      "date": "02-03-2025",
       "description": "Mr Kishoo",
       "category": "UPI Payment",
-      "debit": 20,
+      "debit": 75,
       "credit": null,
-      "balance": 0.64
+      "balance": 719.64
     },
     {
-      "date": "18-02-2025",
-      "description": "razorpayBa",
-      "category": "IMPS",
-      "debit": null,
-      "credit": 1,
-      "balance": 1.64
-    },
-    {
-      "date": "20-02-2025",
-      "description": "G R Monish",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 10,
-      "balance": 11.64
-    },
-    {
-      "date": "20-02-2025",
-      "description": "Mr Ayyapp",
-      "category": "UPI Payment",
-      "debit": 10,
-      "credit": null,
-      "balance": 1.64
-    },
-    {
-      "date": "23-02-2025",
-      "description": "G R Monish",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 20,
-      "balance": 21.64
-    },
-    {
-      "date": "23-02-2025",
-      "description": "G R Monish",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 213,
-      "balance": 234.64
-    },
-    {
-      "date": "23-02-2025",
-      "description": "AYYAPPARA",
-      "category": "UPI Payment",
-      "debit": null,
-      "credit": 1000,
-      "balance": 1234.64
-    },
-    {
-      "date": "23-02-2025",
-      "description": "Mr Kishoo",
-      "category": "UPI Payment",
-      "debit": 90,
-      "credit": null,
-      "balance": 1144.64
-    },
-    {
-      "date": "24-02-2025",
-      "description": "slice",
-      "category": "UPI Payment",
-      "debit": 19,
-      "credit": null,
-      "balance": 1125.64
-    },
-    {
-      "date": "24-02-2025",
+      "date": "02-03-2025",
       "description": "WH Smith",
-      "category": "UPI Payment",
-      "debit": 25,
-      "credit": null,
-      "balance": 1100.64
-    },
-    {
-      "date": "26-02-2025",
-      "description": "Hrithik",
       "category": "UPI Payment",
       "debit": 30,
       "credit": null,
-      "balance": 1070.64
+      "balance": 689.64
     },
     {
-      "date": "27-02-2025",
-      "description": "NASRIN BA",
+      "date": "02-03-2025",
+      "description": "WH Smith",
       "category": "UPI Payment",
-      "debit": 50,
+      "debit": 25,
       "credit": null,
-      "balance": 1020.64
+      "balance": 664.64
     },
     {
-      "date": "28-02-2025",
-      "description": "MOI TECHN",
+      "date": "03-03-2025",
+      "description": "Mr Kishoo",
       "category": "UPI Payment",
-      "debit": 70,
+      "debit": 12.5,
       "credit": null,
-      "balance": 950.64
+      "balance": 652.14
+    },
+    {
+      "date": "03-03-2025",
+      "description": "LE BROC 4",
+      "category": "UPI Payment",
+      "debit": 40,
+      "credit": null,
+      "balance": 612.14
+    },
+    {
+      "date": "03-03-2025",
+      "description": "DAVINDER",
+      "category": "UPI Payment",
+      "debit": 90,
+      "credit": null,
+      "balance": 522.14
+    },
+    {
+      "date": "03-03-2025",
+      "description": "Aadhityaa",
+      "category": "UPI Payment",
+      "debit": null,
+      "credit": 30,
+      "balance": 552.14
+    },
+    {
+      "date": "03-03-2025",
+      "description": "Bharanidh",
+      "category": "UPI Payment",
+      "debit": null,
+      "credit": 30,
+      "balance": 582.14
+    },
+    {
+      "date": "04-03-2025",
+      "description": "WH Smith",
+      "category": "UPI Payment",
+      "debit": 20,
+      "credit": null,
+      "balance": 562.14
+    },
+    {
+      "date": "04-03-2025",
+      "description": "WH Smith",
+      "category": "UPI Payment",
+      "debit": 55,
+      "credit": null,
+      "balance": 507.14
+    },
+    {
+      "date": "05-03-2025",
+      "description": "Hrithik",
+      "category": "UPI Payment",
+      "debit": null,
+      "credit": 20,
+      "balance": 527.14
+    },
+    {
+      "date": "05-03-2025",
+      "description": "G R Monish",
+      "category": "UPI Payment",
+      "debit": null,
+      "credit": 30,
+      "balance": 557.14
+    },
+    {
+      "date": "05-03-2025",
+      "description": "DAVINDER",
+      "category": "UPI Payment",
+      "debit": 120,
+      "credit": null,
+      "balance": 437.14
+    },
+    {
+      "date": "05-03-2025",
+      "description": "Bharanidh",
+      "category": "UPI Payment",
+      "debit": 100,
+      "credit": null,
+      "balance": 337.14
+    },
+    {
+      "date": "05-03-2025",
+      "description": "ALBIN SHI",
+      "category": "UPI Payment",
+      "debit": null,
+      "credit": 50,
+      "balance": 387.14
     }
   ]
 }

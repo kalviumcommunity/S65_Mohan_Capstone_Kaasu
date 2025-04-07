@@ -4,7 +4,7 @@ const RecentTransactions = ({ transactions }) => {
   return (
     <div
       className="w-80 bg-white border border-gray-300 rounded-xl p-4 overflow-y-auto scrollbar-thin scrollbar-thumb-gray-300 hover:scrollbar-thumb-gray-400"
-      style={{ height: "auto", maxHeight: "70vh" }}
+      style={{ height: "auto", maxHeight: "45vh" }}
     >
       <h2 className="text-xl font-semibold mb-3">Recent Transactions</h2>
       <ul>
