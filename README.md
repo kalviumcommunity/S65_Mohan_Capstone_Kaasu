@@ -1,5 +1,7 @@
 # Kaasu - AI-Powered Family Financial Advisor & Planner
 
+[Backend Deployment Link](https://s65-mohan-capstone-kaasu.onrender.com)
+
 ## Problem Statement  
 Managing finances is a challenge for both individuals and families. Many people struggle with tracking expenses, setting budgets, and managing shared family finances. Existing solutions often:  
 
