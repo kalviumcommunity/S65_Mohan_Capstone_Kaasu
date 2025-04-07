@@ -3,7 +3,9 @@ import axiosInstance from '../utils/axiosInstance'
 
 const useTransactionStore = create((set) => ({
     transactions: null,
+
     getTransactions: async () => {
+
         try {
             let res = await axiosInstance.get('/transaction/user')
             console.log(res)
@@ -22,9 +24,11 @@ const useTransactionStore = create((set) => ({
         }
     },
     filteredTransactions: (transactions, searchQuery) => {
-        const query = searchQuery.toLowerCase();
+
+        try {
+            const query = searchQuery.toLowerCase();
     
-        return transactions
+        if(transactions)return transactions
           .filter((t) => {
             const name = t.description.toLowerCase();
             const category = t.category.toLowerCase();
@@ -50,6 +54,11 @@ const useTransactionStore = create((set) => ({
     
             return bScore - aScore;
           });
+        } catch (error) {
+            console.log(error.message)
+        }
+      
+        
     }
 }))
 

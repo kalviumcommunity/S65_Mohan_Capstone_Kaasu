@@ -1,13 +1,19 @@
 import { Bell, Settings, User } from 'lucide-react'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Overview from '../components/Overview'
 import Transactions from '../components/Transactions'
 import Family from '../components/Family'
 import Navbar from '../components/Navbar'
+import userAuthStore from '../stores/userAuthStore'
 
 
 const Dashboard = ({user}) => {
     const [currentView, setCurrentView] = useState("Dashboard")
+    const {getProfile} = userAuthStore()
+    useEffect(() => {
+            getProfile()
+        }, [getProfile, currentView])
+    
   return (
     <div className='' style={{padding: '0 200px'}}>
      <Navbar user={user}/>
@@ -17,7 +23,7 @@ const Dashboard = ({user}) => {
         <h1 onClick={() => setCurrentView("Family")} className={currentView == "Family" ? 'text-green-600  border-b-4 cursor-pointer border-green-500' : 'cursor-pointer'}>Family</h1>
       </div>
       {currentView == "Dashboard" ? (
-        <Overview />
+        <Overview currentView={currentView}/>
       ) : currentView == "Transactions" ? (
         <Transactions />
       ): <Family /> }

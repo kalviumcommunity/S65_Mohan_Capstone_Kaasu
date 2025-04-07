@@ -7,6 +7,7 @@ const userAuthStore = create( (set) => ({
     user: null,
     isLoginLoading: false,
     isSignupLoading: false,
+    isProfileLoading: false,
     login: async (email, password) => {
         try {
             set({isLoginLoading: true})
@@ -44,6 +45,7 @@ const userAuthStore = create( (set) => ({
     },
     getProfile: async () => {
             try {
+                set({isProfileLoading: false})
                 let res = await axiosInstance.get('/auth/profile')
                 console.log(res.data)
                 // set({user: res.data})
@@ -51,6 +53,9 @@ const userAuthStore = create( (set) => ({
             }
             catch (err){
                 console.log(err.message)
+            }
+            finally{
+                set({isProfileLoading: true})
             }
         },
     logout: async () => {
