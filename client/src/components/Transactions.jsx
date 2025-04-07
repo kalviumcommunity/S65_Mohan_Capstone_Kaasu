@@ -121,7 +121,7 @@ const Transactions = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
-          {/* {showFilters && (
+          {showFilters && (
             <div className="bg-gray-50 p-4 mb-4 rounded shadow-md flex flex-wrap gap-4  w-full max-w-full box-border">
               <div
                 className="flex flex-col flex-1"
@@ -230,7 +230,7 @@ const Transactions = () => {
                 </button>
               </div>
             </div>
-          )} */}
+          )}
           <table className="w-full border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-left">
