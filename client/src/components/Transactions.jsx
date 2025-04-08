@@ -1,23 +1,30 @@
-import React, { useEffect, useState } from 'react';
-import { Search, Filter, Pencil } from 'lucide-react';
-import useTransactionStore from '../stores/useTransactionsStore';
+import React, { useEffect, useState } from "react";
+import { Search, Filter, Pencil } from "lucide-react";
+import useTransactionStore from "../stores/useTransactionsStore";
 
 const Transactions = () => {
-  const { transactions, getTransactions, editTransaction } = useTransactionStore();
+  const { transactions,filteredTransactions, getTransactions, editTransaction } =
+    useTransactionStore();
   const [openPopup, setOpenPopup] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
-  console.log(transactions)
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     getTransactions();
+    
   }, [getTransactions]);
 
+  const newTransactions = filteredTransactions(transactions, searchQuery)
   const handleEditClick = (transaction) => {
     setSelectedTransaction({ ...transaction });
     setOpenPopup(true);
   };
 
   const handleChange = (e) => {
-    setSelectedTransaction({ ...selectedTransaction, [e.target.name]: e.target.value });
+    setSelectedTransaction({
+      ...selectedTransaction,
+      [e.target.name]: e.target.value,
+    });
   };
 
   return (
@@ -27,16 +34,139 @@ const Transactions = () => {
           <h2 className="text-2xl font-bold text-gray-800">Transactions</h2>
           <div className="flex gap-2">
             <div className="relative">
-              <input type="text" placeholder="Search..." className="border border-gray-300 rounded-lg px-3 py-2 text-sm" />
-              <Search className="absolute right-2 top-2 text-gray-400" size={18} />
+              <input
+                type="text"
+                placeholder="Search..."
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                className="border border-gray-300 rounded-lg px-3 py-2 text-sm"
+              />
+              <Search
+                className="absolute right-2 top-2 text-gray-400"
+                size={18}
+              />
             </div>
-            <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
+            <button
+              onClick={() => setShowFilters((prev) => !prev)}
+              className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
+            >
               <Filter size={16} /> Filter
             </button>
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
+
+          {showFilters && (
+            <div className="bg-gray-50 p-4 mb-4 rounded shadow-md flex flex-wrap gap-4  w-full max-w-full box-border">
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: 96 }}
+              >
+                <label>Type</label>
+                <select
+                  value={filters.type}
+                  onChange={(e) =>
+                    setFilters({ ...filters, type: e.target.value })
+                  }
+                >
+                  <option value="">All</option>
+                  <option value="credit">Credit</option>
+                  <option value="debit">Debit</option>
+                </select>
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>From Date</label>
+                <input
+                  className="px-2"
+                  type="date"
+                  value={filters.fromDate}
+                  onChange={(e) =>
+                    setFilters({ ...filters, fromDate: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>To Date</label>
+                <input
+                  className="px-2"
+                  type="date"
+                  value={filters.toDate}
+                  onChange={(e) =>
+                    setFilters({ ...filters, toDate: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col  flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>Category</label>
+                <input
+                  className="px-2"
+                  type="text"
+                  value={filters.category}
+                  onChange={(e) =>
+                    setFilters({ ...filters, category: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>Min Amount</label>
+                <input
+                  className="px-2"
+                  type="number"
+                  value={filters.minAmount}
+                  onChange={(e) =>
+                    setFilters({ ...filters, minAmount: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>Max Amount</label>
+                <input
+                  className="px-2"
+                  type="number"
+                  value={filters.maxAmount}
+                  onChange={(e) =>
+                    setFilters({ ...filters, maxAmount: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-2"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <button
+                  onClick={() =>
+                    setFilters({
+                      fromDate: "",
+                      toDate: "",
+                      category: "",
+                      minAmount: "",
+                      maxAmount: "",
+                      type: "",
+                    })
+                  }
+                  className="text-sm bg-blue-600 text-white px-3 py-6 rounded-lg shadow-md hover:bg-blue-700"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </div>
+          )}
+          <table className="w-full border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-left">
                 <th className="p-3">Date</th>
@@ -48,27 +178,39 @@ const Transactions = () => {
               </tr>
             </thead>
             <tbody>
-              {transactions && transactions.map((transaction) => (
-                <tr key={transaction._id} className="border-b last:border-none">
-                  <td className="p-3 text-gray-500">{transaction.date}</td>
-                  <td className="p-3 font-medium">{transaction.description}</td>
-                  <td className="p-3 text-gray-600">{transaction.category}</td>
-                  {transaction.debit ? (
-                    <td className='text-red-600 font-semibold'>-{transaction.debit}</td>
-                  ) : (
-                    <td className='font-semibold text-green-600'>+{transaction.credit}</td>
-                  )}
-                  <td className="p-3 text-gray-600">{transaction.balance}</td>
-                  <td>
-                    <button 
-                      className='bg-green-500 p-2 rounded-lg text-center text-white font-medium' 
-                      onClick={() => handleEditClick(transaction)}
-                    > 
-                      <Pencil size={20} /> 
-                    </button>
-                  </td>
-                </tr>
-              ))}
+              {filteredTransactions &&
+                filteredTransactions.map((transaction) => (
+                  <tr
+                    key={transaction._id}
+                    className="border-b last:border-none"
+                  >
+                    <td className="p-3 text-gray-500">{transaction.date}</td>
+                    <td className="p-3 font-medium">
+                      {transaction.description}
+                    </td>
+                    <td className="p-3 text-gray-600">
+                      {transaction.category}
+                    </td>
+                    {transaction.debit ? (
+                      <td className="text-red-600 font-semibold">
+                        -{transaction.debit}
+                      </td>
+                    ) : (
+                      <td className="font-semibold text-green-600">
+                        +{transaction.credit}
+                      </td>
+                    )}
+                    <td className="p-3 text-gray-600">{transaction.balance}</td>
+                    <td>
+                      <button
+                        className="bg-green-500 p-2 rounded-lg text-center text-white font-medium"
+                        onClick={() => handleEditClick(transaction)}
+                      >
+                        <Pencil size={20} />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
@@ -81,34 +223,83 @@ const Transactions = () => {
               <form className="space-y-4">
                 <div className="flex flex-col">
                   <label className="font-medium">Date</label>
-                  <input type="text" name="date" className="border p-2 rounded" value={selectedTransaction.date} onChange={handleChange} />
+                  <input
+                    type="text"
+                    name="date"
+                    className="border p-2 rounded"
+                    value={selectedTransaction.date}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Name</label>
-                  <input type="text" name="description" className="border p-2 rounded" value={selectedTransaction.name} onChange={handleChange}/>
+                  <input
+                    type="text"
+                    name="description"
+                    className="border p-2 rounded"
+                    value={selectedTransaction.name}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Category</label>
-                  <input type="text" name="category" className="border p-2 rounded" value={selectedTransaction.category} onChange={handleChange} />
+                  <input
+                    type="text"
+                    name="category"
+                    className="border p-2 rounded"
+                    value={selectedTransaction.category}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Type</label>
-                  <select name="type" className="border p-2 rounded" value={selectedTransaction.debit ? "debit" : "credit"} onChange={handleChange}>
+                  <select
+                    name="type"
+                    className="border p-2 rounded"
+                    value={selectedTransaction.debit ? "debit" : "credit"}
+                    onChange={handleChange}
+                  >
                     <option value="credit">Credit</option>
                     <option value="debit">Debit</option>
                   </select>
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Amount</label>
-                  <input type="number" name="amount" className="border p-2 rounded" value={selectedTransaction.debit || selectedTransaction.credit} onChange={handleChange} />
+                  <input
+                    type="number"
+                    name="amount"
+                    className="border p-2 rounded"
+                    value={
+                      selectedTransaction.debit || selectedTransaction.credit
+                    }
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="flex flex-col">
                   <label className="font-medium">Balance</label>
-                  <input type="number" name="balance" className="border p-2 rounded" value={selectedTransaction.balance} onChange={handleChange} />
+                  <input
+                    type="number"
+                    name="balance"
+                    className="border p-2 rounded"
+                    value={selectedTransaction.balance}
+                    onChange={handleChange}
+                  />
                 </div>
                 <div className="flex justify-end space-x-2">
-                  <button type="button" className="px-4 py-2 border rounded text-gray-700" onClick={() => setOpenPopup(false)}>Cancel</button>
-                  <button type="submit" className="px-4 py-2 bg-blue-600 text-white rounded" onClick={() => editTransaction(selectedTransaction)}>Save</button>
+                  <button
+                    type="button"
+                    className="px-4 py-2 border rounded text-gray-700"
+                    onClick={() => setOpenPopup(false)}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    type="submit"
+                    className="px-4 py-2 bg-blue-600 text-white rounded"
+                    onClick={() => editTransaction(selectedTransaction)}
+                  >
+                    Save
+                  </button>
                 </div>
               </form>
             </div>
