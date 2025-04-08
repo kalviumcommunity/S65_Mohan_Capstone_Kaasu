@@ -178,8 +178,8 @@ const Transactions = () => {
               </tr>
             </thead>
             <tbody>
-              {filteredTransactions &&
-                filteredTransactions.map((transaction) => (
+              {newTransactions &&
+                newTransactions.map((transaction) => (
                   <tr
                     key={transaction._id}
                     className="border-b last:border-none"

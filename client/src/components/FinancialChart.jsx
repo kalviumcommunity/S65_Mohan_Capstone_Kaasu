@@ -5,13 +5,13 @@ import { Filter } from "lucide-react";
 import RecentTransactions from "./RecentTransactions";
 import useTransactionStore from "../stores/useTransactionsStore";
 
-const FinancialChart = () => {
+const FinancialChart = ({currentView}) => {
 
   const { transactions, getTransactions } = useTransactionStore();
   
   useEffect(() => {
     getTransactions();
-  }, [getTransactions]);
+  }, [getTransactions, currentView]);
   
   const getExpense = () => {
     let expenses = [0,0,0,0,0,0,0,0,0,0,0,0]
@@ -135,7 +135,7 @@ const FinancialChart = () => {
               <h3 className="text-2xl font-semibold text-gray-800">Financial Overview</h3>
               <p className="text-sm text-gray-500">Income vs. Expenses</p>
             </div>
-            <div className="flex items-center">
+            {/* <div className="flex items-center">
               <button className="flex items-center text-sm text-gray-600 border border-gray-200 rounded-lg px-3 py-1 mr-2">
                 <Filter className="h-4 w-4 mr-1" />
                 Filter
@@ -145,7 +145,7 @@ const FinancialChart = () => {
                 <option>Last 6 Months</option>
                 <option>Last 3 Months</option>
               </select>
-            </div>
+            </div> */}
           </div>
           <Chart options={options} series={series} type="area" height={280} />
         </div>
