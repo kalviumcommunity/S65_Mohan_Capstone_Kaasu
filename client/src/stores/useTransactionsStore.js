@@ -23,16 +23,47 @@ const useTransactionStore = create((set) => ({
             console.log(error.message)
         }
     },
-    filteredTransactions: (transactions, searchQuery) => {
-
-        try {
-            const query = searchQuery.toLowerCase();
+    filteredTransactions: (transactions, searchQuery, filters) => {
+      try {
+        const query = searchQuery.toLowerCase();
     
-        if(transactions)return transactions
+        return transactions
           .filter((t) => {
             const name = t.description.toLowerCase();
             const category = t.category.toLowerCase();
-            return name.includes(query) || category.includes(query);
+    
+            const matchesQuery =
+              query === "" || name.includes(query) || category.includes(query);
+    
+            const matchesType =
+              !filters.type ||
+              (filters.type === "debit" && t.debit) ||
+              (filters.type === "credit" && t.credit);
+    
+            const matchesCategory =
+              !filters.category ||
+              category.includes(filters.category.toLowerCase());
+    
+            const date = new Date(t.date);
+            const fromDate = filters.fromDate ? new Date(filters.fromDate) : null;
+            const toDate = filters.toDate ? new Date(filters.toDate) : null;
+            const matchesDate =
+              (!fromDate || date >= fromDate) && (!toDate || date <= toDate);
+    
+            const amount = t.debit || t.credit || 0;
+            const minAmount = filters.minAmount ? parseFloat(filters.minAmount) : null;
+            const maxAmount = filters.maxAmount ? parseFloat(filters.maxAmount) : null;
+            const matchesAmount =
+              (!minAmount || amount >= minAmount) &&
+              (!maxAmount || amount <= maxAmount);
+    
+            return (
+              matchesQuery &&
+              matchesType &&
+              matchesCategory &&
+              matchesDate &&
+              matchesAmount
+            );
           })
           .sort((a, b) => {
             const getRelevance = (str) => {
@@ -54,12 +85,12 @@ const useTransactionStore = create((set) => ({
     
             return bScore - aScore;
           });
-        } catch (error) {
-            console.log(error.message)
-        }
-      
-        
+      } catch (error) {
+        console.error(error.message);
+        return [];
+      }
     }
+    
 }))
 
 export default useTransactionStore  
