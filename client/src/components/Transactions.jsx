@@ -3,84 +3,18 @@ import { Search, Filter, Pencil } from "lucide-react";
 import useTransactionStore from "../stores/useTransactionsStore";
 
 const Transactions = () => {
-  const { transactions, getTransactions, editTransaction } =
+  const { transactions,filteredTransactions, getTransactions, editTransaction } =
     useTransactionStore();
   const [openPopup, setOpenPopup] = useState(false);
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [searchQuery, setSearchQuery] = useState("");
-  const [showFilters, setShowFilters] = useState(false);
-  const [filters, setFilters] = useState({
-    fromDate: "",
-    toDate: "",
-    category: "",
-    minAmount: "",
-    maxAmount: "",
-    type: "",
-  });
-  const maxFilterWidth = 120;
-  const filterWidth = 85;
+
   useEffect(() => {
     getTransactions();
+    
   }, [getTransactions]);
 
-  const filteredTransactions = transactions
-    .filter((t) => {
-      const query = searchQuery.toLowerCase();
-      const name = t.description.toLowerCase();
-      const category = t.category.toLowerCase();
-
-      const matchesSearch = name.includes(query) || category.includes(query);
-      const transactionDate = new Date(t.date);
-      const from = filters.fromDate ? new Date(filters.fromDate) : null;
-      const to = filters.toDate ? new Date(filters.toDate) : null;
-
-      const inDeteRange =
-        (!from || transactionDate >= from) && (!to || transactionDate <= to);
-      const matchesCategory =
-        !filters.category || category.includes(filters.category.toLowerCase());
-
-      const amount = t.debit || t.credit;
-
-      const inAmountRange =
-        (!filters.minAmount || amount >= parseFloat(filters.minAmount)) &&
-        (!filters.maxAmount || amount <= parseFloat(filters.maxAmount));
-
-      const matchesType =
-        !filters.type ||
-        (filters.type === "credit" && t.credit) ||
-        (filters.type === "debits" && t.debit);
-
-      return (
-        matchesSearch &&
-        inDeteRange &&
-        matchesCategory &&
-        inAmountRange &&
-        matchesType
-      );
-    })
-    .sort((a, b) => {
-      const query = searchQuery.toLowerCase();
-
-      const getRelevance = (str) => {
-        if (str === query) return 3;
-        if (str.startsWith(query)) return 2;
-        if (str.includes(query)) return 1;
-        return 0;
-      };
-
-      const aScore = Math.max(
-        getRelevance(a.description.toLowerCase()),
-        getRelevance(a.category.toLowerCase())
-      );
-
-      const bScore = Math.max(
-        getRelevance(b.description.toLowerCase()),
-        getRelevance(b.category.toLowerCase())
-      );
-      // sort in descending order
-      return bScore - aScore;
-    });
-
+  const newTransactions = filteredTransactions(transactions, searchQuery)
   const handleEditClick = (transaction) => {
     setSelectedTransaction({ ...transaction });
     setOpenPopup(true);
@@ -121,6 +55,7 @@ const Transactions = () => {
           </div>
         </div>
         <div className="overflow-x-auto">
+
           {showFilters && (
             <div className="bg-gray-50 p-4 mb-4 rounded shadow-md flex flex-wrap gap-4  w-full max-w-full box-border">
               <div
