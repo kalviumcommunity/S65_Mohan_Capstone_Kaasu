@@ -46,13 +46,127 @@ const Transactions = () => {
                 size={18}
               />
             </div>
-            <button className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700">
+            <button
+              onClick={() => setShowFilters((prev) => !prev)}
+              className="flex items-center gap-1 bg-blue-600 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-700"
+            >
               <Filter size={16} /> Filter
             </button>
           </div>
         </div>
         <div className="overflow-x-auto">
-          <table className="w-full">
+
+          {showFilters && (
+            <div className="bg-gray-50 p-4 mb-4 rounded shadow-md flex flex-wrap gap-4  w-full max-w-full box-border">
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: 96 }}
+              >
+                <label>Type</label>
+                <select
+                  value={filters.type}
+                  onChange={(e) =>
+                    setFilters({ ...filters, type: e.target.value })
+                  }
+                >
+                  <option value="">All</option>
+                  <option value="credit">Credit</option>
+                  <option value="debit">Debit</option>
+                </select>
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>From Date</label>
+                <input
+                  className="px-2"
+                  type="date"
+                  value={filters.fromDate}
+                  onChange={(e) =>
+                    setFilters({ ...filters, fromDate: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>To Date</label>
+                <input
+                  className="px-2"
+                  type="date"
+                  value={filters.toDate}
+                  onChange={(e) =>
+                    setFilters({ ...filters, toDate: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col  flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>Category</label>
+                <input
+                  className="px-2"
+                  type="text"
+                  value={filters.category}
+                  onChange={(e) =>
+                    setFilters({ ...filters, category: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>Min Amount</label>
+                <input
+                  className="px-2"
+                  type="number"
+                  value={filters.minAmount}
+                  onChange={(e) =>
+                    setFilters({ ...filters, minAmount: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-1"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <label>Max Amount</label>
+                <input
+                  className="px-2"
+                  type="number"
+                  value={filters.maxAmount}
+                  onChange={(e) =>
+                    setFilters({ ...filters, maxAmount: e.target.value })
+                  }
+                />
+              </div>
+              <div
+                className="flex flex-col flex-2"
+                style={{ width: filterWidth, maxWidth: maxFilterWidth }}
+              >
+                <button
+                  onClick={() =>
+                    setFilters({
+                      fromDate: "",
+                      toDate: "",
+                      category: "",
+                      minAmount: "",
+                      maxAmount: "",
+                      type: "",
+                    })
+                  }
+                  className="text-sm bg-blue-600 text-white px-3 py-6 rounded-lg shadow-md hover:bg-blue-700"
+                >
+                  Clear Filters
+                </button>
+              </div>
+            </div>
+          )}
+          <table className="w-full border-collapse">
             <thead>
               <tr className="bg-gray-100 text-gray-700 text-left">
                 <th className="p-3">Date</th>
