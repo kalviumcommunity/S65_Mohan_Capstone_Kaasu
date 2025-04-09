@@ -4,17 +4,23 @@ const User = require("../models/user.model")
 const createFamily = async (req, res) => {
     try {
         const { name, members } = req.body 
-
-        const newFamily = new Family({ name, members }) 
+        const uniqueId = () => {
+            const dateString = Date.now().toString(36);
+            const randomness = Math.random().toString(36).substr(2);
+            return dateString + randomness;
+          };
+        const newFamily = new Family({ name,uniqueCode: uniqueId(), members }) 
+        const user = await User.findById(req.user.id)
+        user.familyId = newFamily._id
         await newFamily.save() 
-        members?.forEach(async (id) => {
-            const user = await User.findById(id)
-            if(user){
-                user.familyId = newFamily._id
-                await user.save()
-            }
-        })
-        return res.status(201).json({ msg: "Family Created Successfully", newFamily }) 
+        // members?.forEach(async (id) => {
+        //     const user = await User.findById(id)
+        //     if(user){
+        //         user.familyId = newFamily._id
+        //         await user.save()
+        //     }
+        // })
+        return res.status(201).json({ msg: "Family Created Successfully", newFamily, user }) 
     } catch (error) {
         console.error(error) 
         return res.status(500).json({ msg: "Internal Server Error", desc: error.message }) 

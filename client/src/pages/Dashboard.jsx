@@ -26,7 +26,7 @@ const Dashboard = ({user}) => {
         <Overview currentView={currentView}/>
       ) : currentView == "Transactions" ? (
         <Transactions />
-      ): <Family /> }
+      ): <Family user={user}/> }
     </div>
   )
 }

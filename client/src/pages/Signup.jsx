@@ -56,11 +56,11 @@ const Signup = () => {
     e.preventDefault();
     if (validateForm()) {
       try {
-        await signup({
-          username: formData.name,
-          email: formData.email,
-          password: formData.password
-        });
+        await signup(
+          formData.name,
+          formData.email,
+          formData.password
+        );
         toast.success('Signup successful!');
         navigate('/');
       } catch (error) {
