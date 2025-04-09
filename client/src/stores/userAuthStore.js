@@ -25,7 +25,7 @@ const userAuthStore = create( (set) => ({
         try {
             set({isSignupLoading: true})
             let res = await axiosInstance.post('/auth/signup', {name,email,password})
-            console.log(res.data.msg)
+            console.log(res)
         } catch (error) {
             console.log(error.message)
         }   

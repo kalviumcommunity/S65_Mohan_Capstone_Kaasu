@@ -24,7 +24,7 @@ const Transactions = () => {
 
   useEffect(() => {
     getTransactions();
-  }, [getTransactions]);
+  }, [getTransactions]); 
 
   const newTransactions = filteredTransactions(transactions, searchQuery, filters);
 

@@ -66,7 +66,7 @@ const logout = async (req,res) => {
 const getProfile = async (req,res) => {
     try {
         const userId =  req.user.userId
-        const user = await User.findOne({userId})
+        const user = await User.findOne({userId}).populate('familyId')
         if(!user){
             return res.status(400).json({msg: "User Profile Not found"})
         } 

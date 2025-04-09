@@ -1,8 +1,15 @@
 const { default: mongoose } = require("mongoose");
 
 const FamilySchema = new mongoose.Schema({
-    name: String,
-    members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" }]
+    name: {
+      type: String,
+      required: true
+    },
+    uniqueCode: {
+      type: String,
+      unique: [true],
+    },
+    members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" , default: null}]
   });
 
   module.exports = mongoose.model("Family", FamilySchema)
