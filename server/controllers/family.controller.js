@@ -1,3 +1,4 @@
+const { default: mongoose } = require("mongoose");
 const Family = require("../models/family.model") 
 const User = require("../models/user.model")
 
@@ -12,14 +13,10 @@ const createFamily = async (req, res) => {
         const newFamily = new Family({ name,uniqueCode: uniqueId(), members }) 
         const user = await User.findById(req.user.id)
         user.familyId = newFamily._id
+        newFamily.members.push(user._id)
         await newFamily.save() 
-        // members?.forEach(async (id) => {
-        //     const user = await User.findById(id)
-        //     if(user){
-        //         user.familyId = newFamily._id
-        //         await user.save()
-        //     }
-        // })
+        await user.save()
+        
         return res.status(201).json({ msg: "Family Created Successfully", newFamily, user }) 
     } catch (error) {
         console.error(error) 
@@ -31,8 +28,10 @@ const createFamily = async (req, res) => {
 const getFamily = async (req, res) => {
     try {
 
-        const familyId = req.user.familyId
-        const family = await Family.findById(familyId).populate("members", "name email") 
+        const userId = req.user.id
+        const user = await User.findById(userId)
+        console.log(user)
+        const family = await Family.findById(user.familyId).populate("members", "name email balance expenses") 
 
         if (!family) {
             return res.status(404).json({ msg: "Family Not Found" }) 
@@ -45,7 +44,23 @@ const getFamily = async (req, res) => {
     }
 } 
 
-
+const joinFamilyMember = async (req,res) => {
+    try {
+        const {uniqueCode} = req.body
+        const userId = req.user.id
+        const user = await User.findById(userId)
+        const family = await Family.findOne({uniqueCode})
+        if (!family.members.includes(userId)) {
+            family.members.push(userId) 
+            await family.save() 
+        }
+        user.familyId = family._id
+        await user.save()
+        return res.status(200).json({ msg: "Family Joined Successfully", family})
+    } catch (error) {
+        return res.status(500).json({ msg: "Internal Server Error", desc: error.message }) 
+    }
+}
 const addFamilyMember = async (req, res) => {
     try {
         const { userId } = req.body 
@@ -69,25 +84,42 @@ const addFamilyMember = async (req, res) => {
 } 
 
 
+
+
 const removeFamilyMember = async (req, res) => {
     try {
-        const { userId } = req.body 
-        const familyId = req.user.familyId
+        const { userId } = req.body;
+        const familyId = req.user.familyId;
 
-        const family = await Family.findById(familyId) 
-        if (!family) {
-            return res.status(404).json({ msg: "Family Not Found" }) 
+        const user = await User.findById(userId);
+        if (!user) {
+            return res.status(404).json({ msg: "User Not Found" });
         }
 
-        family.members = family.members.filter(member => member.toString() !== userId) 
-        await family.save() 
+        const family = await Family.findById(familyId);
+        if (!family) {
+            return res.status(404).json({ msg: "Family Not Found" });
+        }
 
-        return res.status(200).json({ msg: "Member Removed Successfully", family }) 
+
+        family.members = family.members.filter(
+            (memberId) => memberId.toString() !== userId
+        );
+
+
+        user.familyId = null;
+
+
+        await family.save();
+        await user.save();
+
+        return res.status(200).json({ msg: "Member Removed Successfully", family });
     } catch (error) {
-        console.error(error) 
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message }) 
+        console.error(error);
+        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
     }
-} 
+};
+
 
 
 const deleteFamily = async (req, res) => {
@@ -111,5 +143,6 @@ module.exports = {
     getFamily,
     addFamilyMember,
     removeFamilyMember,
-    deleteFamily
+    deleteFamily,
+    joinFamilyMember
 } 

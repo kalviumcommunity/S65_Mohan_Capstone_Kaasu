@@ -227,7 +227,7 @@
     {
       "date": "18-02-2025",
       "description": "razorpayBa",
-      "category": "IMPS",
+      "category": "INET-IMPS",
       "debit": null,
       "credit": 1,
       "balance": 1.64
