@@ -4,6 +4,7 @@ import toast from 'react-hot-toast'
 
 const useFamilyStore = create((set) => ({
     family: null,
+    transactions: null,
     getFamily: async() => {
         try {
             let res = await axiosInstance.get('/family')
@@ -30,6 +31,14 @@ const useFamilyStore = create((set) => ({
         } catch (error) {
             console.log(error.message)
         }
+    },
+    getFamilyTransactions: async() => {
+        try {
+            let res = await axiosInstance.get('/transaction/family')
+            set({transactions: res.data.transactions})
+        } catch (error) {
+            console.log(error.message)
+        }   
     }
 }))
 

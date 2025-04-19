@@ -1,4 +1,3 @@
-const { default: mongoose } = require("mongoose");
 const Family = require("../models/family.model") 
 const User = require("../models/user.model")
 
