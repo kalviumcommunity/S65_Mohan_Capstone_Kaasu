@@ -5,7 +5,7 @@ import axiosInstance from '../utils/axiosInstance';
 import { useNavigate } from 'react-router-dom';
 import Loader from './Loader';
 
-const Hero = ({user}) => {
+const Hero = ({user, setReloadPopup}) => {
   const fileRef = useRef();
   const [isHovered, setIsHovered] = useState(false);
   const [loading, setLoading] = useState(false)
@@ -30,6 +30,7 @@ const Hero = ({user}) => {
     finally{
       setLoading(false)
       navigate('/dashboard')
+      setReloadPopup(true)
     }
   }
   const handleClick = () => {

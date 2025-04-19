@@ -3,7 +3,7 @@ import FinancialChart from './FinancialChart'
 import { useNavigate } from 'react-router-dom'
 import userAuthStore from '../stores/userAuthStore'
 import ReactMarkdown from 'react-markdown'
-import { Plus, Wallet } from 'lucide-react'
+import { Download, Plus, Wallet } from 'lucide-react'
 import useTransactionStore from '../stores/useTransactionsStore'
 import NewLoader from './NewLoader'
 
@@ -36,7 +36,17 @@ const Overview = ({currentView}) => {
         <p className='text-right text-sm'>.</p>
       </div>
       <div className="upload">
-        <button onClick={() => navigate('/upload')} className='bg-black flex items-center gap-2 text-white px-3 py-2 text-lg rounded-lg items-end'><Plus /> Upload Your Bank Statement</button>
+        <button onClick={() => navigate('/upload')} className='bg-black flex items-center gap-2 text-white px-3 py-2 text-lg rounded-lg items-end'><Plus /> Upload Statement</button>
+      </div>
+      <div className="upload">
+      <a
+  href="/statement/bank-statement.pdf"
+  download
+  className="border-2 flex items-center gap-2 text-black px-3 py-2 text-md rounded-lg"
+>
+  <Download /> Sample Statement
+</a>
+
       </div>
     </div>
     <div className="main">

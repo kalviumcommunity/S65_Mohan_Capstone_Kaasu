@@ -2,7 +2,7 @@ import { Bell, Settings, User } from 'lucide-react'
 import React, { useEffect, useState } from 'react'
 import Overview from '../components/Overview'
 import Transactions from '../components/Transactions'
-import Family from '../components/Family'
+import Family from '../components/Family/Family'
 import Navbar from '../components/Navbar'
 import userAuthStore from '../stores/userAuthStore'
 
@@ -26,7 +26,7 @@ const Dashboard = ({user}) => {
         <Overview currentView={currentView}/>
       ) : currentView == "Transactions" ? (
         <Transactions />
-      ): <Family /> }
+      ): <Family user={user}/> }
     </div>
   )
 }
