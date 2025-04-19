@@ -6,6 +6,7 @@ const User = require('../models/user.model')
 const createTransaction = async (req, res) => {
     const userId = req.user.id
     const familyId = req.user.familyId
+    console.log(familyId)
     const { amount, status, category, date, description } = req.body;
 
     try {
@@ -36,8 +37,10 @@ const getUserTransactions = async (req, res) => {
 
 const getFamilyTransactions = async (req, res) => {
     try {
-        const familyId = req.user.familyId 
-        const transactions = await Transaction.find({ familyId });
+        const user  = await User.findById(req.user.id)
+        const familyId = user.familyId 
+
+        const transactions = await Transaction.find({ familyId }).populate("userId", "name");
 
         if (!transactions.length) {
             return res.status(404).json({ msg: "No Transactions Found" });
@@ -99,6 +102,7 @@ const uploadPDF = async (req,res) => {
     const user = await User.findByIdAndUpdate(req.user.id, {insights, balance: newInfo[0], expenses: newInfo[1]})
     const uidTransactions = parsedJson.transactions.map(el => ({
         userId: req.user.id, 
+        familyId: user.familyId,
         ...el
     }));
     const newTransactions = await Transaction.insertMany(uidTransactions)
