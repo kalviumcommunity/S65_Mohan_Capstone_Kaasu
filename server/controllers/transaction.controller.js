@@ -109,7 +109,7 @@ const uploadPDF = async (req,res) => {
     res.status(200).json({newTransactions, user})
 
     } catch (error) {
-        console.log(error.message)
+        console.log("Upload PDF",error.message)
         return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
     }
 }

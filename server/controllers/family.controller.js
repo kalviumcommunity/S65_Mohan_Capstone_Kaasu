@@ -29,7 +29,6 @@ const getFamily = async (req, res) => {
 
         const userId = req.user.id
         const user = await User.findById(userId)
-        console.log(user)
         const family = await Family.findById(user.familyId).populate("members", "name email balance expenses") 
 
         if (!family) {
