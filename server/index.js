@@ -11,7 +11,7 @@ const cors = require('cors')
 app.use(cookieParser())
 app.use(express.json())
 app.use(cors({
-    origin: "*",
+    origin: process.env.CLIENT_URL,
     credentials: true
 }))
 app.use('/api/auth', require('./routes/user.route'))
