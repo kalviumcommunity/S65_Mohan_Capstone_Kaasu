@@ -1,123 +1,46 @@
-const Transaction = require("../models/transaction.model");
-const processPDF = require('../utils/ai')
-const getInsights = require('../utils/insights')
-const User = require('../models/user.model')
+const getInsights = require("../ai/getInsights")
+const processPDF = require("../ai/transactionExtractor")
+const Transaction = require('../models/transaction.model')
+const User = require("../models/user.model")
 
-const createTransaction = async (req, res) => {
-    const userId = req.user.id
-    const familyId = req.user.familyId
-    console.log(familyId)
-    const { amount, status, category, date, description } = req.body;
 
+const getAllTransactions = async (req,res) => {
     try {
-        const newTransaction = new Transaction({ userId, familyId, amount, status, category, date, description });
-        await newTransaction.save();
-        
-        return res.status(201).json({ msg: "Transaction Created Successfully", newTransaction });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
-    }
-};
-
-const getUserTransactions = async (req, res) => {
-    try {
-        const userId = req.user.id
-        const transactions = await Transaction.find({ userId });
-
-        if (!transactions.length) {
-            return res.status(404).json({ msg: "No Transactions Found" });
+        const transactions = await Transaction.find({userId: req.user.userId})
+        if(!transactions){
+            return res.status(404).json({message: "Transactions not Found !"})
         }
-        return res.status(200).json({ msg: "Transactions Found Successfully", transactions });
+        return res.status(200).json({message: "Transactions Found Successfully !!", transactions})
     } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
+        return res.status(500).json({message:"Internal Server Error", desc: error.message})
     }
-};
+}
 
-const getFamilyTransactions = async (req, res) => {
-    try {
-        const user  = await User.findById(req.user.id)
-        const familyId = user.familyId 
-
-        const transactions = await Transaction.find({ familyId }).populate("userId", "name");
-
-        if (!transactions.length) {
-            return res.status(404).json({ msg: "No Transactions Found" });
-        }
-
-        return res.status(200).json({ msg: "Transactions Found Successfully", transactions });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
-    }
-};
-
-const editTransaction = async (req, res) => {
-    try {
-        const { id } = req.params; 
-        const { amount, status, category, date, description } = req.body;
-
-        const transaction = await Transaction.findByIdAndUpdate(
-            id,
-            { amount, status, category, date, description },
-            { new: true } 
-        );
-
-        if (!transaction) {
-            return res.status(404).json({ msg: "Transaction Not Found" });
-        }
-
-        return res.status(200).json({ msg: "Transaction Updated Successfully", transaction });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
-    }
-};
-
-const deleteTransaction = async (req, res) => {
-    try {
-        const { id } = req.params; 
-
-        const transaction = await Transaction.findByIdAndDelete(id);
-
-        if (!transaction) {
-            return res.status(404).json({ msg: "Transaction Not Found" });
-        }
-
-        return res.status(200).json({ msg: "Transaction Deleted Successfully", transaction });
-    } catch (error) {
-        console.error(error);
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
-    }
-};
 const uploadPDF = async (req,res) => {
     try {
-    const {parsedJson, insights, info} = await processPDF(`${req.file.path}`)
-    // const transactionToString = JSON.stringify(transactions)
-    // console.log(transactionToString)
-    // const insights = await getInsights(transactionToString)
-
-    const newInfo = JSON.parse(info)
-    const user = await User.findByIdAndUpdate(req.user.id, {insights, balance: newInfo[0], expenses: newInfo[1]})
-    const uidTransactions = parsedJson.transactions.map(el => ({
-        userId: req.user.id, 
-        familyId: user.familyId,
+        const path = req.file.path
+        const userId  = req.user.userId
+        const parsedJson = await processPDF(`${path}`)
+        const uidTransactions = parsedJson.transactions.map(el => ({
+        userId,
         ...el
     }));
     const newTransactions = await Transaction.insertMany(uidTransactions)
-    res.status(200).json({newTransactions, user})
-
+    res.status(200).json({newTransactions})
     } catch (error) {
-        console.log("Upload PDF",error.message)
-        return res.status(500).json({ msg: "Internal Server Error", desc: error.message });
+        return res.status(500).json({message:"Internal Server Error", desc: error.message})
     }
 }
-module.exports = { 
-    createTransaction, 
-    getUserTransactions, 
-    getFamilyTransactions, 
-    editTransaction, 
-    deleteTransaction ,
-    uploadPDF
-};
+
+const getAllInsights = async (req,res) => {
+    try {
+        const transactions = await Transaction.find({userId: req.user.userId})
+        const insights = await getInsights(transactions.toString())
+        console.log(insights)
+        return res.status(200).json({message: "Insights got Successfully !", insights})
+    } catch (error) {
+        return res.status(500).json({message:"Internal Server Error", desc: error.message})
+    }
+}
+
+module.exports = {uploadPDF, getAllTransactions, getAllInsights}

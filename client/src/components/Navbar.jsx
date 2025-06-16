@@ -1,26 +1,38 @@
-import { Bell, Settings, User } from 'lucide-react';
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Home, UploadCloud, Repeat, Users, User } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
-
-const Navbar = ({user}) => {
-  const navigate = useNavigate()
+const Navbar = () => {
   return (
-    <div className="bg-white">
-      <div className="mt-10 flex justify-between px-10 py-4 items-center">
-        <div className="flex gap-6 items-center">
-            <h1 className='text-2xl font-extrabold'>Logo</h1>
-           {user && <h2 className='font-semibold text-md text-green-500 cursor-pointer' onClick={() => navigate('/')}>Dashboard</h2>}
-        </div>
-       {user ? (<div className="flex gap-6">
-          <div className="relative">
-          <Bell />
-          </div>
-          <Settings />
-          <User className='cursor-pointer' onClick={() => navigate('/profile')}/>
-        </div>) : (
-          <button onClick={() => navigate('/login')} className='bg-black text-white px-3 py-2 rounded-lg text-md font-semibold'>Login</button>
-        )}
+    <div className='flex items-center justify-around py-3 border-b-2'>
+      <h1 className='text-3xl font-bold'>Kaasu</h1>
+      <div className='flex items-center p-2 gap-4'>
+
+
+        <Link to={"/dashboard"} className='flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-gray-100 cursor-pointer'>
+          <Home size={20} />
+          <p className='text-md'>Home</p>
+        </Link>
+
+        <Link to={"/"} className='flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-gray-100 cursor-pointer'>
+          <UploadCloud size={20} />
+          <p className='text-md'>Upload</p>
+        </Link>
+
+        <Link to={"/transactions"} className='flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-gray-100 cursor-pointer'>
+          <Repeat size={20} />
+          <p className='text-md'>Transactions</p>
+        </Link>
+
+        <Link to={"/family"} className='flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-gray-100 cursor-pointer'>
+          <Users size={20} />
+          <p className='text-md'>Family</p>
+        </Link>
+
+        <Link to={"/profile"} className='flex items-center gap-2 px-3 py-2 rounded-md transition-colors duration-200 hover:bg-gray-100 cursor-pointer'>
+          <User size={20} />
+          <p className='text-md'>Profile</p>
+        </Link>
+
       </div>
     </div>
   );
