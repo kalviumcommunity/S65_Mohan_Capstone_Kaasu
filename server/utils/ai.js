@@ -5,7 +5,6 @@ const getInsights = require('./insights')
 const getInfo = require('./info')
 
 
-
 const extractTextFromPDF = async (pdfPath) => {
   try {
     const dataBuffer = fs.readFileSync(pdfPath);
