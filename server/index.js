@@ -10,7 +10,7 @@ const PORT = process.env.PORT
 
 // const app = express()
 app.use(cors({
-  origin: process.env.CLIENT_URL,
+  origin: 'https://s65-mohan-capstone-kaasu-1.onrender.com',
   credentials: true
 }));
 
