@@ -38,6 +38,7 @@ const App = () => {
         setUser(res.data.user)
       } catch (error) {
         toast.error("User not Logged In")
+        console.log(error)
       }
       finally{
         setLoading(false)
