@@ -14,6 +14,7 @@ const Login = () => {
       console.log(res);
       toast.success(res.data.message);
       navigate('/dashboard');
+
     } catch (error) {
       console.log(error.response);
       if (error.response?.data?.message) {

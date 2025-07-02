@@ -9,7 +9,8 @@ const FamilySchema = new mongoose.Schema({
       type: String,
       unique: [true],
     },
-    members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" , default: null}]
+    members: [{ type: mongoose.Schema.Types.ObjectId, ref: "User" , default: null}],
+    bills: [{name: String, price: Number}]
   });
 
   module.exports = mongoose.model("Family", FamilySchema)

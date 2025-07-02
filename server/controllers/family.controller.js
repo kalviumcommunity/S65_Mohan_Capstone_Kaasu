@@ -27,4 +27,31 @@ const joinFamily = async (req,res) => {
     }
 }
 
-module.exports = {createFamily, joinFamily}
+const createBill = async(req,res) => {
+    try {
+        const {name, price} = req.body
+        const user = await User.findById(req.user.userId)
+        const family = await Family.findById(user.familyId)
+        family.bills.push({name, price})
+        await family.save()
+        return res.status(201).json({message: "Bill created", family})
+    } catch (error) {
+        return res.status(500).json({message:"Internal Server Error", desc: error.message})
+    }
+}
+
+const deleteBill = async (req,res) => {
+    try {
+        const {id} = req.body
+        const user = await User.findById(req.user.userId)
+        const family = await Family.findById(user.familyId)
+
+        const bills =  family.bills.filter(bill => bill._id != id)
+        family.bills = bills
+        await family.save()
+        return res.status(200).json({message: "Bill Deleted successfully", family})
+    } catch (error) {
+        return res.status(500).json({message:"Internal Server Error", desc: error.message})
+    }
+}
+module.exports = {createFamily, joinFamily, createBill, deleteBill}

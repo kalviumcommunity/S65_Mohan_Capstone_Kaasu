@@ -1,57 +1,59 @@
-import React, { useEffect, useState } from 'react';
-import Popup from './chunks/Popup';
-import toast from 'react-hot-toast';
-import { axiosInstance } from '../utils/axiosInstance';
+import React, { useState } from 'react' 
+import Popup from './chunks/Popup' 
+import toast from 'react-hot-toast' 
+import { axiosInstance } from '../utils/axiosInstance' 
+import Navbar from './Navbar.jsx' 
+import Bill from './chunks/Bill.jsx' 
+import { Plus } from 'lucide-react' 
+import CreateBill from './chunks/CreateBill.jsx' 
+import { useEffect } from 'react'
 import socket from '../utils/socket.js'
-import Navbar from './Navbar.jsx';
 
-const Family = ({ user }) => {
-  const [currentUser, setCurrentUser] = useState(user);
-  const [showJoinPopup, setShowJoinPopup] = useState(false);
-  const [showCreatePopup, setShowCreatePopup] = useState(false);
-
-
-  useEffect(() => {
-    
-    socket.on('connection', () => {
-      console.log("Connected ..")
-    })
-    return () => {
-      socket.off('connection');
-    };
-  }, []);
+const Family = ({ user,onlineUsers }) => {
+  const [currentUser, setCurrentUser] = useState(user)
+  const [showJoinPopup, setShowJoinPopup] = useState(false)
+  const [showCreatePopup, setShowCreatePopup] = useState(false)
+  const [showCreateBill, setShowCreateBill] = useState(false)
 
 
+    useEffect(() => {
+      socket.on("reload", (data) => {
+        if(data){
+          window.location.reload()
+        }
+      })
+    }, [])
 
   const handleCreateFamily = async (name) => {
     try {
-      const res = await axiosInstance.post('/family/create', { name });
-      toast.success(res.data.message);
+      const res = await axiosInstance.post('/family/create', { name }) 
+      toast.success(res.data.message) 
 
-      const userRes = await axiosInstance.get('/auth/profile');
-      setCurrentUser(userRes.data.user);
+      const userRes = await axiosInstance.get('/auth/profile') 
+      setCurrentUser(userRes.data.user) 
 
-      setShowCreatePopup(false);
+      setShowCreatePopup(false) 
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to create family');
+      toast.error(error?.response?.data?.message || 'Failed to create family') 
     }
-  };
+  }
 
   const handleJoinFamily = async (code) => {
     try {
-      const res = await axiosInstance.post('/family/join', { uniqueCode: code });
-      toast.success(res.data.message);
+      const res = await axiosInstance.post('/family/join', { uniqueCode: code }) 
+      toast.success(res.data.message) 
 
-      const userRes = await axiosInstance.get('/auth/profile');
-      setCurrentUser(userRes.data.user);
+      const userRes = await axiosInstance.get('/auth/profile') 
+      setCurrentUser(userRes.data.user) 
 
-      setShowJoinPopup(false);
+      setShowJoinPopup(false) 
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to join family');
+      toast.error(error?.response?.data?.message || 'Failed to join family') 
     }
-  };
+  }
 
-  const family = currentUser.familyId;
+  const family = currentUser.familyId
+  const isLeader = family && family.members[0]._id == user._id
   return (
     <div>
       <Navbar />
@@ -90,22 +92,19 @@ const Family = ({ user }) => {
             className="w-12 h-12 rounded-full object-cover border border-gray-300"
           />
           <span
-            className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${
-              'bg-green-500'
-            }`}
+            className={`absolute bottom-0 right-0 w-3 h-3 rounded-full border-2 border-white ${onlineUsers.find(user => user == el._id) ? 'bg-green-500' : 'bg-red-500'}`}
             title={'Online'}
           ></span>
         </div>
 
         <div className="flex-1">
-          <h1 className="text-lg font-semibold text-gray-800">{el.username}</h1>
+          <h1 className="text-lg font-semibold text-gray-800 flex items-center gap-2">{el.username}{i==0 && <p className='text-sm text-gray-500'>· Head</p>} </h1>
+
           <p className="text-sm text-gray-500">{el.email}</p>
           <p
-            className={`text-xs font-medium mt-1 ${
-              'text-green-600'
-            }`}
+            className={`text-xs font-medium mt-1 ${onlineUsers.find(user => user == el._id) ? 'text-green-500' : 'text-red-500'}`}
           >
-            Online
+            {onlineUsers.find(user => user == el._id) ? 'Online' : 'Offline'}
           </p>
         </div>
       </div>
@@ -129,8 +128,17 @@ const Family = ({ user }) => {
           onOk={handleCreateFamily}
         />
       )}
+      {/* Bills Section */}
+        <h1 className='text-3xl font-black px-5'>Bills</h1>
+        {isLeader && <button className='m-5 border rounded-xl' onClick={() => setShowCreateBill(true)}><Plus /></button>}
+        {showCreateBill && <CreateBill setShowCreateBill={setShowCreateBill}/>}
+      <div className='flex gap-5 p-5'>
+        {family && family.bills.map(el => ( 
+          <Bill isLeader={isLeader} id={el._id} name={el.name} price={el.price} /> 
+        ))}
+      </div>
     </div>
-  );
-};
+  ) 
+} 
 
-export default Family;
+export default Family 

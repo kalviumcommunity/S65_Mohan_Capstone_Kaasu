@@ -10,8 +10,9 @@ const PORT = process.env.PORT
 
 // const app = express()
 app.use(cors({
-  origin: 'https://s65-mohan-capstone-kaasu-1.onrender.com',
-  credentials: true
+  origin: ['http://localhost:5173','https://s65-mohan-capstone-kaasu-1.onrender.com'],
+// origin: "http://localhost:5173",
+credentials: true
 }));
 
 

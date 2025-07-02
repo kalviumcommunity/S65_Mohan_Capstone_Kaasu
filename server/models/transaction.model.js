@@ -16,5 +16,5 @@ const TransactionSchema = new mongoose.Schema({
   debit: { type: Number, default: null },  
   credit: { type: Number, default: null }, 
   balance: { type: Number }
-});
+})
   module.exports = mongoose.model("Transaction", TransactionSchema)
