@@ -68,7 +68,7 @@ This project is a full-stack MERN web application designed to help individuals a
 - **Frontend:** React, Redux, Tailwind CSS  
 - **Backend:** Node.js, Express.js  
 - **Database:** MongoDB  
-- **AI & OCR:** AI Api & Tesseract
+- **AI & OCR:** AI Api
 - **Real-Time Updates:** WebSockets  
 
 ---
