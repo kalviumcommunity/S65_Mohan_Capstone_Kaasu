@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { axiosInstance } from '../utils/axiosInstance';
 import toast from 'react-hot-toast';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
   const [user, setUser] = useState({ email: '', password: '' });
@@ -70,6 +70,7 @@ const Login = () => {
           >
             Submit
           </button>
+          <Link className='text-blue-800 underline' to={'/register'}>Don't Have an account?</Link>
         </form>
       </div>
         <div className="hidden md:block md:w-1/2 bg-blue-600"></div>
