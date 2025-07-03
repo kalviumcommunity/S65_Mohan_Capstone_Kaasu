@@ -1,4 +1,4 @@
-import { Plus } from 'lucide-react'
+import { Download, Plus } from 'lucide-react'
 import React from 'react'
 import { useState } from 'react'
 import { useRef } from 'react'
@@ -69,9 +69,13 @@ const Landing = ({user}) => {
          <h2 className='text-lg md:text-xl font-semibold text-gray-800'>Upload Your PDF</h2>
          <p className='text-gray-600 text-sm md:text-base'>or Drag and Drop</p>
        </div>
+      <div className='my-5 flex flex-col gap-2 items-center'>
+        <p className='text-sm text-slate-800'>Here is a sample bank statement for testing</p>
+        <a href='/statement/fake_bank_statement.pdf' download  className='p-2 shadow-xs  flex gap-2 bg-gradient-to-r from-slate-900 to-slate-700 text-white rounded-md items-center w-fit text-sm cursor-pointer'><Download size={20}/> Download </a>
       </div>
       </div>
-
+      </div>
+      
      </div>
   )
 }

@@ -1,38 +1,100 @@
 const Family = require('../models/family.model')
-const User = require('../models/user.model')
+const User = require('../models/user.model') 
+const { generateToken } = require('../utils/generateToken') 
 
 const createFamily = async (req,res) => {
     try {
-        const uniqueCode = Math.random().toString(36).substring(2,7);
+        const uniqueCode = Math.random().toString(36).toUpperCase().substring(2,7) 
         const {name} = req.body
         const newFamily = new Family({name, uniqueCode, members: [req.user.userId] })
         await newFamily.save()
-        await User.findByIdAndUpdate(req.user.userId, {familyId: newFamily._id}, {new: true})
-        return res.status(201).json({message: "New Family Created", newFamily})
+        const user = await User.findByIdAndUpdate(req.user.userId, {familyId: newFamily._id}, {new: true})
+        generateToken(user, res)
+        return res.status(201).json({message: "New Family Created", family:newFamily})
     } catch (error) {
         return res.status(500).json({message:"Internal Server Error", desc: error.message})
     }
 }
+const joinFamily = async (req, res) => {
+  try {
+    const { uniqueCode } = req.body 
 
-const joinFamily = async (req,res) => {
-    try {
-        const {uniqueCode} = req.body
-        const family = await Family.findOne({uniqueCode})
-        family.members.push(req.user.userId)
-        await User.findByIdAndUpdate(req.user.userId, {familyId: family._id}, {new: true})
-        await family.save()
-        return res.status(201).json({message: "Joined successfully", family})
-    } catch (error) {
-        return res.status(500).json({message:"Internal Server Error", desc: error.message})
+    let family = await Family.findOne({ uniqueCode }) 
+    if (!family) {
+      return res.status(404).json({ message: "Family not found" }) 
     }
-}
+
+
+    if (!family.members.includes(req.user.userId)) {
+      family.members.push(req.user.userId) 
+    }
+
+    const user = await User.findByIdAndUpdate(
+      req.user.userId,
+      { familyId: family._id },
+      { new: true }
+    ) 
+
+    generateToken(user, res) 
+
+    await family.save() 
+
+
+    family = await Family.findById(family._id).populate({path: "members", model: "User"}) 
+
+    return res.status(201).json({ message: "Joined successfully", family }) 
+  } catch (error) {
+    return res.status(500).json({
+      message: "Internal Server Error",
+      desc: error.message,
+    }) 
+  }
+} 
+
+
+const exitFamily = async (req, res) => {
+  try {
+    const user = await User.findById(req.user.userId) 
+    if (!user) {
+      return res.status(404).json({ message: "User not found" }) 
+    }
+
+    const family = await Family.findById(user.familyId).populate({
+            path: "members",
+            model: "User"
+        })
+    if (!family) {
+      return res.status(404).json({ message: "Family not found" }) 
+    }
+
+
+    family.members = family.members.filter(
+      member => member._id.toString() !== user._id.toString()
+    ) 
+
+
+    user.familyId = null 
+
+    await user.save() 
+    await family.save() 
+
+    return res.status(200).json({ message: "Exited successfully", family }) 
+  } catch (error) {
+    console.error("Exit Family Error:", error) 
+    return res.status(500).json({
+      message: "Internal Server Error",
+      desc: error.message,
+    }) 
+  }
+} 
+
 
 const createBill = async(req,res) => {
     try {
-        const {name, price} = req.body
+        const {name, price, link} = req.body
         const user = await User.findById(req.user.userId)
-        const family = await Family.findById(user.familyId)
-        family.bills.push({name, price})
+        const family = await Family.findById(user.familyId).populate({path: "members", model: "User"})
+        family.bills.push({name, price, link})
         await family.save()
         return res.status(201).json({message: "Bill created", family})
     } catch (error) {
@@ -44,7 +106,7 @@ const deleteBill = async (req,res) => {
     try {
         const {id} = req.body
         const user = await User.findById(req.user.userId)
-        const family = await Family.findById(user.familyId)
+        const family = await Family.findById(user.familyId).populate({path: "members", model: "User"})
 
         const bills =  family.bills.filter(bill => bill._id != id)
         family.bills = bills
@@ -54,4 +116,4 @@ const deleteBill = async (req,res) => {
         return res.status(500).json({message:"Internal Server Error", desc: error.message})
     }
 }
-module.exports = {createFamily, joinFamily, createBill, deleteBill}
+module.exports = {createFamily, joinFamily, createBill, deleteBill, exitFamily}

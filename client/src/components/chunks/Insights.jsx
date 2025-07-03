@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { axiosInstance } from '../../utils/axiosInstance'
 import Loading from './Loading'
+import { Lightbulb } from 'lucide-react'
 
 const Insights = () => {
   const [insightsLoading, setInsightsLoading] = useState(false)
@@ -23,9 +24,10 @@ const Insights = () => {
   return (
     <div>
       {insightsLoading ? <Loading /> : (
-        <div>
-          <button className='p-5 bg-gray-800 text-white border text-xl cursor-pointer' onClick={handleInsights}>
-            Get Insights
+        <div className='flex justify-center w-full items-center flex-col'>
+
+          <button className='p-5 flex gap-2 bg-gradient-to-r from-slate-900 to-slate-700 text-white rounded-md text-xl cursor-pointer' onClick={handleInsights}>
+            <Lightbulb /> Get Insights {insights && "again"}
           </button>
           <div className=" bg-white rounded-xl">
             <div dangerouslySetInnerHTML={{ __html: insights }} />

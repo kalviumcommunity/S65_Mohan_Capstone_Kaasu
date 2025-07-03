@@ -4,37 +4,50 @@ import toast from 'react-hot-toast'
 import { axiosInstance } from '../utils/axiosInstance' 
 import Navbar from './Navbar.jsx' 
 import Bill from './chunks/Bill.jsx' 
-import { Plus } from 'lucide-react' 
+import { ClipboardCopy, DoorOpen, Plus, WifiLowIcon } from 'lucide-react' 
 import CreateBill from './chunks/CreateBill.jsx' 
 import { useEffect } from 'react'
 import socket from '../utils/socket.js'
+import Goal from './chunks/Goal.jsx'
 
 const Family = ({ user,onlineUsers }) => {
   const [currentUser, setCurrentUser] = useState(user)
   const [showJoinPopup, setShowJoinPopup] = useState(false)
   const [showCreatePopup, setShowCreatePopup] = useState(false)
   const [showCreateBill, setShowCreateBill] = useState(false)
-
+  const [bills, setBills] = useState(currentUser.familyId?.bills || []);
+  const [members, setMembers] = useState(currentUser.familyId?.members || [])
 
     useEffect(() => {
-      socket.on("reload", (data) => {
-        if(data){
-          window.location.reload()
-        }
-      })
-    }, [])
+  socket.on("reload", (data) => {
+    if (data) {
+      setBills(data.bills)
+      console.log("come on bro work please",data)
+      setMembers(data.members)
+    };
+  });
+
+
+  return () => {
+    socket.off("reload");
+  };
+}, []);
+
 
   const handleCreateFamily = async (name) => {
     try {
       const res = await axiosInstance.post('/family/create', { name }) 
       toast.success(res.data.message) 
-
+      console.log(res)
+      socket.emit("join-family", res.data.family._id);
+      socket.emit("family", res.data.family)
+      window.location.reload()
       const userRes = await axiosInstance.get('/auth/profile') 
       setCurrentUser(userRes.data.user) 
-
       setShowCreatePopup(false) 
     } catch (error) {
-      toast.error(error?.response?.data?.message || 'Failed to create family') 
+      console.log(error.message)
+      toast.error(error?.response?.data?.message) 
     }
   }
 
@@ -45,20 +58,40 @@ const Family = ({ user,onlineUsers }) => {
 
       const userRes = await axiosInstance.get('/auth/profile') 
       setCurrentUser(userRes.data.user) 
-
+      socket.emit("join-family", res.data.family._id);
+      socket.emit("family", res.data.family)
       setShowJoinPopup(false) 
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to join family') 
     }
   }
 
+  const handleExit = async () => {
+    try {
+      const res = await axiosInstance.get('/family/exit')
+      toast.success(res.data.message)
+      socket.emit("family", res.data.family) 
+      console.log(res)
+      window.location.reload()
+    } catch (error) {
+      toast.error(error?.response?.data?.message || 'Failed to join family') 
+    }
+  }
+
+  const handleCopy = (text) => {
+    navigator.clipboard.writeText(text)
+    .then(() => {
+      toast.success("Copied to Clipboard")
+    })
+    .catch(err => toast.error(err.message))
+  }
   const family = currentUser.familyId
   const isLeader = family && family.members[0]._id == user._id
   return (
     <div>
       <Navbar />
       {!family ? (
-        <div className="flex items-center justify-center w-screen h-screen">
+        <div className="flex flex-col gap-3 items-center justify-center w-screen h-screen">
           <div className="flex flex-col max-w-100 gap-4">
             <button
               onClick={() => setShowJoinPopup(true)}
@@ -73,14 +106,24 @@ const Family = ({ user,onlineUsers }) => {
               Create Family
             </button>
           </div>
+          <p className='font-bold my-3 text-slate-800 text-md'>Use this code and join the Dummy Family - <strong>WCS9P</strong> </p>
         </div>
       ) : (
         <div className="p-4">
-          <h1 className="text-2xl font-bold">{family.name}'s Finance Overview</h1>
-          <p>{family.uniqueCode}</p>
+          <div className='flex items-center justify-between'>
+            <div className='flex  items-center gap-5'>
+              <h1 className="text-2xl font-bold">{family.name}'s Finance Overview</h1>
+            <div className='flex items-center gap-2 bg-white border border-slate-300 shadow-2xs rounded-md w-fit p-1 '>
+            <p className='font-bold text-md text-purple-900'>{family.uniqueCode}</p>
+          <button onClick={() => handleCopy(family.uniqueCode)} className=' w-fit p-1 rounded-md cursor-pointer'> <ClipboardCopy size={20}/> </button>
+          </div>
+            </div>
+          <button onClick={handleExit} className='bg-red-400 text-white p-2 cursor-pointer rounded-md'><DoorOpen /> </button>
+          </div>
+          
           <h1 className='m-2 text-xl font-bold'>Members</h1>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
-  {family.members && family.members.map((el, i) =>  (
+  {members && members.map((el, i) =>  (
       <div
         key={i}
         className="flex items-center space-x-4 bg-white shadow-md rounded-2xl p-4 hover:shadow-lg transition duration-200"
@@ -128,13 +171,21 @@ const Family = ({ user,onlineUsers }) => {
           onOk={handleCreateFamily}
         />
       )}
+
+      {/* Goals Section */}
+      <div>
+        {/* <Goal /> */}
+      </div>
+
       {/* Bills Section */}
-        <h1 className='text-3xl font-black px-5'>Bills</h1>
+        <div className='flex items-center'>
+             <h1 className='text-3xl font-black px-5'>Bills</h1>
         {isLeader && <button className='m-5 border rounded-xl' onClick={() => setShowCreateBill(true)}><Plus /></button>}
+        </div>
         {showCreateBill && <CreateBill setShowCreateBill={setShowCreateBill}/>}
       <div className='flex gap-5 p-5'>
-        {family && family.bills.map(el => ( 
-          <Bill isLeader={isLeader} id={el._id} name={el.name} price={el.price} /> 
+        {bills && bills.map(el => ( 
+          <Bill isLeader={isLeader} id={el._id} name={el.name} price={el.price} link={el.link}/> 
         ))}
       </div>
     </div>

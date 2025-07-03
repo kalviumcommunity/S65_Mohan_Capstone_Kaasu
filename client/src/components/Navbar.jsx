@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 
 const Navbar = () => {
   return (
-    <div className='flex items-center justify-around py-3 border-b-2'>
+    <div className=' sticky top-0 flex items-center justify-around py-3 m-2 border border-slate-200 rounded-2xl bg-white shadow-2xs z-8'>
       <h1 className='text-3xl font-bold'>Kaasu</h1>
       <div className='flex items-center p-2 gap-4'>
 

@@ -29,7 +29,7 @@ const Profile = ({user}) => {
         <img
           src={user.avatar}
           alt={`${user.username}'s avatar`}
-          className='absolute inset-0 w-full h-full object-cover grayscale'
+          className='absolute inset-0 w-full h-full object-cover'
         />
       </div>
 
