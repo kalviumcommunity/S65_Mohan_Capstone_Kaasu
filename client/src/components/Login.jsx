@@ -13,7 +13,7 @@ const Login = () => {
       const res = await axiosInstance.post('/auth/login', user);
       console.log(res);
       toast.success(res.data.message);
-      navigate('/dashboard');
+      navigate('/');
 
     } catch (error) {
       console.log(error.response);

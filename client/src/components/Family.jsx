@@ -4,11 +4,12 @@ import toast from 'react-hot-toast'
 import { axiosInstance } from '../utils/axiosInstance' 
 import Navbar from './Navbar.jsx' 
 import Bill from './chunks/Bill.jsx' 
-import { ClipboardCopy, DoorOpen, Plus, WifiLowIcon } from 'lucide-react' 
+import { ChartAreaIcon, ClipboardCopy, DoorOpen, MessageCircle, Plus, WifiLowIcon } from 'lucide-react' 
 import CreateBill from './chunks/CreateBill.jsx' 
 import { useEffect } from 'react'
 import socket from '../utils/socket.js'
 import Goal from './chunks/Goal.jsx'
+import ChatBox from './chunks/ChatBox.jsx'
 
 const Family = ({ user,onlineUsers }) => {
   const [currentUser, setCurrentUser] = useState(user)
@@ -17,6 +18,8 @@ const Family = ({ user,onlineUsers }) => {
   const [showCreateBill, setShowCreateBill] = useState(false)
   const [bills, setBills] = useState(currentUser.familyId?.bills || []);
   const [members, setMembers] = useState(currentUser.familyId?.members || [])
+  const [messages, setMessages] = useState([])
+  const [openChat, setOpenChat] = useState(false)
 
     useEffect(() => {
   socket.on("reload", (data) => {
@@ -27,7 +30,7 @@ const Family = ({ user,onlineUsers }) => {
     };
   });
 
-
+  getMessages()
   return () => {
     socket.off("reload");
   };
@@ -85,6 +88,12 @@ const Family = ({ user,onlineUsers }) => {
     })
     .catch(err => toast.error(err.message))
   }
+
+    const getMessages = async () => {
+          let res = await axiosInstance.get('/family/messages')
+          setMessages(res.data.messages)
+      }
+
   const family = currentUser.familyId
   const isLeader = family && family.members[0]._id == user._id
   return (
@@ -188,7 +197,9 @@ const Family = ({ user,onlineUsers }) => {
           <Bill isLeader={isLeader} id={el._id} name={el.name} price={el.price} link={el.link}/> 
         ))}
       </div>
-    </div>
+        {!openChat && <MessageCircle className='absolute bottom-10 right-10' onClick={() => setOpenChat(true)}/>}
+      {openChat && <ChatBox  messages={messages} setMessages={setMessages} members={members} currentUser={currentUser} setOpenChat={setOpenChat}/>}
+    </div>  
   ) 
 } 
 

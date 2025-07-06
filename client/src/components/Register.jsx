@@ -11,7 +11,7 @@ const Register = () => {
     e.preventDefault();
     const res = await axiosInstance.post('/auth/register', user)
     toast.success(res.data.message)
-    navigae('/dashboard')
+    navigae('/')
     } catch (error) {
         toast.error(error.response.data.message)
     }

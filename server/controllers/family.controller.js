@@ -1,4 +1,5 @@
 const Family = require('../models/family.model')
+const Message = require('../models/message.model')
 const User = require('../models/user.model') 
 const { generateToken } = require('../utils/generateToken') 
 
@@ -116,4 +117,30 @@ const deleteBill = async (req,res) => {
         return res.status(500).json({message:"Internal Server Error", desc: error.message})
     }
 }
-module.exports = {createFamily, joinFamily, createBill, deleteBill, exitFamily}
+
+const addMessage = async (req,res) => {
+  try {
+    const {msg} = req.body
+    const message = new Message({msg, user:req.user.userId, family: req.user.familyId})
+    if(!msg){
+      return res.status(404).json({msg: "Message Text not provided"})
+    }
+    await message.save()
+    return res.status(201).json({msg: "Message Created Successfully", message})
+  } catch (error) {
+    return res.status(500).json({message:"Internal Server Error", desc: error.message})
+  }
+}
+
+const getMessages = async (req,res) => {
+try {
+  const messages = await Message.find({family: req.user.familyId})
+  if(!messages){
+    return res.status(404).json({msg: "Messages found successfully"})
+  }
+  return res.status(200).json({msg:"Messages got successfully", messages})
+} catch (error) {
+  return res.status(500).json({message:"Internal Server Error", desc: error.message})
+}
+}
+module.exports = {createFamily, joinFamily, createBill, deleteBill, exitFamily, addMessage, getMessages}

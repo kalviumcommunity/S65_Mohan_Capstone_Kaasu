@@ -14,9 +14,9 @@ const io = new Server(server, {
   },
 });
 
-const onlineUsers = new Map();      // socket.id -> userId
-const familyUsers = new Map();      // familyId -> Set of userIds
-
+const onlineUsers = new Map();    
+const familyUsers = new Map();     
+const messages = []
 io.on("connection", (socket) => {
   console.log("User connected:", socket.id);
 
@@ -59,6 +59,14 @@ io.on("connection", (socket) => {
       }
     });
 
+    socket.on("message", (msg) => {
+      messages.push({family: familyId,user:[userId], msg})
+      console.log(familyId)
+      io.to(familyId).emit("text", messages)
+      console.log(messages)
+    })
+    // io.to(familyId).emit("text", messages)
+    
     socket.on("disconnect", () => {
       console.log(`User disconnected: ${username}`);
       onlineUsers.delete(socket.id);
