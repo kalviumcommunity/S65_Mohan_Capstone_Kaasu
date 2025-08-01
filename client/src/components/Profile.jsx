@@ -4,15 +4,16 @@ import { axiosInstance } from '../utils/axiosInstance'
 import { useNavigate } from 'react-router-dom'
 import Navbar from './Navbar'
 
-const Profile = ({user}) => {
+const Profile = ({user, setUser}) => {
     const navigate = useNavigate()
     const logout = async() => {
         try {
             const res = await axiosInstance.get('/auth/logout')
+            setUser(null)
             toast.success(res.data.message)
-            navigate('/login')
+            navigate('/')
         } catch (error) {
-            console.log(error.response);
+            console.error(error.response);
       if (error.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {

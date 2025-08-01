@@ -13,8 +13,7 @@ const ChatBox = ({messages, setMessages, members, currentUser, setOpenChat}) => 
     const handleSubmit = async (e) => {
         e.preventDefault()
         socket.emit("message", message)
-        let res = await axiosInstance.post('/family/send-message', {msg: message})
-        console.log(res.data.msg)
+        await axiosInstance.post('/family/send-message', {msg: message})
         setMessage("")
 
     }
@@ -26,7 +25,6 @@ const ChatBox = ({messages, setMessages, members, currentUser, setOpenChat}) => 
 
     useEffect(() => {
          socket.on("text", (data) => {
-            console.log(data)
         setMessages(data)
   })
 

@@ -19,14 +19,13 @@ const Landing = ({user}) => {
         setLoading(true)
         const dataForm = new FormData()
         dataForm.append('file', e.target.files[0])
-        let res = await axiosInstance.post('/transaction/upload', dataForm )
-        console.log(res)
+        await axiosInstance.post('/transaction/upload', dataForm )
       }
       else{
         navigate('/login')
       }
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
     }
     finally{
       setLoading(false)

@@ -21,11 +21,10 @@ const Family = ({ user,onlineUsers }) => {
   const [messages, setMessages] = useState([])
   const [openChat, setOpenChat] = useState(false)
 
-    useEffect(() => {
+  useEffect(() => {
   socket.on("reload", (data) => {
     if (data) {
       setBills(data.bills)
-      console.log("come on bro work please",data)
       setMembers(data.members)
     };
   });
@@ -41,7 +40,6 @@ const Family = ({ user,onlineUsers }) => {
     try {
       const res = await axiosInstance.post('/family/create', { name }) 
       toast.success(res.data.message) 
-      console.log(res)
       socket.emit("join-family", res.data.family._id);
       socket.emit("family", res.data.family)
       window.location.reload()
@@ -49,7 +47,7 @@ const Family = ({ user,onlineUsers }) => {
       setCurrentUser(userRes.data.user) 
       setShowCreatePopup(false) 
     } catch (error) {
-      console.log(error.message)
+      console.error(error.message)
       toast.error(error?.response?.data?.message) 
     }
   }
@@ -74,7 +72,6 @@ const Family = ({ user,onlineUsers }) => {
       const res = await axiosInstance.get('/family/exit')
       toast.success(res.data.message)
       socket.emit("family", res.data.family) 
-      console.log(res)
       window.location.reload()
     } catch (error) {
       toast.error(error?.response?.data?.message || 'Failed to join family') 
@@ -96,6 +93,8 @@ const Family = ({ user,onlineUsers }) => {
 
   const family = currentUser.familyId
   const isLeader = family && family.members[0]._id == user._id
+
+  
   return (
     <div>
       <Navbar />
@@ -131,11 +130,11 @@ const Family = ({ user,onlineUsers }) => {
           </div>
           
           <h1 className='m-2 text-xl font-bold'>Members</h1>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+        <div className="flex items-center ">
   {members && members.map((el, i) =>  (
       <div
         key={i}
-        className="flex items-center space-x-4 bg-white shadow-md rounded-2xl p-4 hover:shadow-lg transition duration-200"
+        className="flex items-center space-x-4 w-100 bg-white shadow-md rounded-2xl p-4 hover:shadow-lg transition duration-200"
       >
         <div className="relative">
           <img

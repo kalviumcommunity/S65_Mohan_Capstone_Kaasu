@@ -7,11 +7,10 @@ const {app, server} = require('./lib/socket')
 
 require('dotenv').config()
 const PORT = process.env.PORT
-
 // const app = express()
+const currentUrl = process.env.NODE_ENV == "development" ? "http://localhost:5173" : "https://s65-mohan-capstone-kaasu-1.onrender.com"
 app.use(cors({
-  origin: ['https://s65-mohan-capstone-kaasu-1.onrender.com'],
-// origin: "http://localhost:5173",
+  origin: currentUrl,
 credentials: true
 }));
 

@@ -1,27 +1,33 @@
 import React, { useState } from 'react';
 import { axiosInstance } from '../utils/axiosInstance';
 import toast from 'react-hot-toast';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { LoaderCircle } from 'lucide-react';
 
-const Login = () => {
-  const [user, setUser] = useState({ email: '', password: '' });
+const Login = ({ setUser}) => {
+  const [user,  setUserLog] = useState({ email: '', password: '' });
   const navigate = useNavigate();
+  const [loading, setLoading] = useState(false)
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const res = await axiosInstance.post('/auth/login', user);
-      console.log(res);
+      const profileRes = await axiosInstance.get('/auth/profile');
+      setUser(profileRes.data.user);
       toast.success(res.data.message);
-      navigate('/');
-
+      navigate("/");
     } catch (error) {
-      console.log(error.response);
+      console.error(error.response);
       if (error.response?.data?.message) {
         toast.error(error.response.data.message);
       } else {
         toast.error("Login failed. Please try again.");
       }
+    }
+    finally{
+      setLoading(false)
     }
   };
 
@@ -46,7 +52,7 @@ const Login = () => {
               className="px-3 py-2 border border-gray-300 rounded"
               value={user.email}
               onChange={(e) =>
-                setUser((prev) => ({ ...prev, email: e.target.value }))
+                 setUserLog((prev) => ({ ...prev, email: e.target.value }))
               }
             />
           </div>
@@ -59,16 +65,18 @@ const Login = () => {
               className="px-3 py-2 border border-gray-300 rounded"
               value={user.password}
               onChange={(e) =>
-                setUser((prev) => ({ ...prev, password: e.target.value }))
+                 setUserLog((prev) => ({ ...prev, password: e.target.value }))
               }
             />
           </div>
 
           <button
             type="submit"
-            className="mt-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="mt-2 bg-blue-600 text-white py-2 rounded flex justify-center items-center hover:bg-blue-700 transition"
           >
-            Submit
+            {loading ? (
+              <LoaderCircle  size={15} className='animate-spin flex items-center'  />
+            ) : "Submit"}
           </button>
           <Link className='text-blue-800 underline' to={'/register'}>Don't Have an account?</Link>
         </form>

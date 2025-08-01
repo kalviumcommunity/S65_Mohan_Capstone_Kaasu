@@ -7,7 +7,6 @@ const Bill = ({isLeader,id, name, price, link}) => {
     const deleteBill = async () => {
        try {
          let res = await axiosInstance.post('/family/delete-bill', {id})
-        console.log(res)
         socket.emit("family", res.data.family)
        } catch (error) {
         console.error(error.message)

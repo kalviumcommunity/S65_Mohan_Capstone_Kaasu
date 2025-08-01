@@ -3,17 +3,25 @@ import { axiosInstance } from '../utils/axiosInstance';
 import toast from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 
-const Register = () => {
-  const [user, setUser] = useState({ username: '', email: '', password: '' });
+const Register = ({setUser}) => {
+  const [user, setUserReg] = useState({ username: '', email: '', password: '' });
   const navigae = useNavigate()
+  const [loading, setLoading] = useState(false)
+
   const handleSubmit = async (e) => {
+    setLoading(true)
     try {
     e.preventDefault();
     const res = await axiosInstance.post('/auth/register', user)
-    toast.success(res.data.message)
+    const profileRes = await axiosInstance.get('/auth/profile');
+    setUser(profileRes.data.user);
+    toast.success(res.data.message);
     navigae('/')
     } catch (error) {
         toast.error(error.response.data.message)
+    }
+    finally{
+      setLoading(false)
     }
 
   };
@@ -21,7 +29,7 @@ const Register = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen">
 
-      <div className="hidden md:block md:w-1/2 bg-blue-600"></div>
+      <div className="hidden lg:block md:w-1/2 bg-blue-600"></div>
 
 
       <div className="w-full h-screen md:w-1/2 flex items-center justify-center bg-gray-100">
@@ -39,7 +47,7 @@ const Register = () => {
               className="px-3 py-2 border border-gray-300 rounded"
               value={user.username}
               onChange={(e) =>
-                setUser((prev) => ({ ...prev, username: e.target.value }))
+                setUserReg((prev) => ({ ...prev, username: e.target.value }))
               }
             />
           </div>
@@ -52,7 +60,7 @@ const Register = () => {
               className="px-3 py-2 border border-gray-300 rounded"
               value={user.email}
               onChange={(e) =>
-                setUser((prev) => ({ ...prev, email: e.target.value }))
+                setUserReg((prev) => ({ ...prev, email: e.target.value }))
               }
             />
           </div>
@@ -65,16 +73,17 @@ const Register = () => {
               className="px-3 py-2 border border-gray-300 rounded"
               value={user.password}
               onChange={(e) =>
-                setUser((prev) => ({ ...prev, password: e.target.value }))
+                setUserReg((prev) => ({ ...prev, password: e.target.value }))
               }
             />
           </div>
-
-          <button
+            <button
             type="submit"
-            className="mt-2 bg-blue-600 text-white py-2 rounded hover:bg-blue-700 transition"
+            className="mt-2 bg-blue-600 text-white py-2 rounded flex justify-center items-center hover:bg-blue-700 transition"
           >
-            Submit
+            {loading ? (
+              <LoaderCircle  size={15} className='animate-spin flex items-center'  />
+            ) : "Submit"}
           </button>
           <Link className='text-blue-800 underline' to={'/login'}>Already Have an account?</Link>
         </form>
