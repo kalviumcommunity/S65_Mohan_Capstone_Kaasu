@@ -17,11 +17,14 @@ Managing finances is a challenge for both individuals and families. Many people 
 ## Project Idea & Brief Description  
 This project is a full-stack MERN web application designed to help individuals and families manage their finances in real time using AI-powered transaction analysis.  
 
+
+https://github.com/user-attachments/assets/294c69c4-5435-4a54-9613-eec0b1593d62
+
+
 ### Key Features  
 - **AI-Powered PDF Processing** – Automatically extracts and categorizes transactions.  
 - **Real-Time Family Finance Management** – Multiple users can track shared expenses.  
 - **Smart Budgeting & Expense Tracking** – Interactive dashboards with insights.  
-- **Alerts & Notifications** – Overspending warnings, bill reminders, and fraud detection.  
 - **Secure & Private** – No direct bank linking, only PDF uploads for security.  
 
 ---
@@ -58,9 +61,8 @@ This project is a full-stack MERN web application designed to help individuals a
 - Integrate AI-powered insights and recommendations.  
 
 ### Phase 7: Final Testing & Deployment  
-- Unit testing and bug fixes across all features.  
 - Optimize backend and AI processing for performance.  
-- Deploy project on Vercel (Frontend) and Render/Heroku (Backend).  
+- Deploy project on Vercel (Frontend) and Render (Backend).  
 
 ---
 
